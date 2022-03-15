@@ -259,3 +259,16 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+*.tclrs
+*.compileinfo
+*.tmc
+*.tmcRefac
+*.project.~u
+*.tsproj.bak
+*.xti.bak
+*.tpy
+**/.TcGit
+_Boot/
+_CompileInfo/
+.vs/
