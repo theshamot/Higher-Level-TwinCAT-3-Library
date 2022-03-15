@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="LinkedList" Id="{1f279f17-3c1a-46d4-9f80-fabd1b728487}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK LinkedList
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	count : UINT;
+END_VAR
+VAR
+	head : POINTER TO Node := NULL;
+	tail : POINTER TO Node := NULL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// linked list implementation reference:
+// https://www.codesdope.com/blog/article/c-linked-lists-in-c-singly-linked-list/
+
+]]></ST>
+    </Implementation>
+    <Method Name="Append" Id="{9a7178d1-781d-4472-b3c0-ee021b93d419}">
+      <Declaration><![CDATA[METHOD Append : UINT
+VAR_INPUT
+	number : INT;
+	
+END_VAR
+VAR
+	tmp : POINTER TO Node;
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[tmp := __NEW(Node);
+tmp^.data := number;
+tmp^.next := NULL;
+
+IF head = NULL THEN
+	head := tmp;
+	tail := tmp;
+ELSE
+	tail^.next := tmp;
+	tail := tail^.next;
+END_IF
+
+count := count + 1;
+
+Append := count;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{6f99c054-c793-45cb-86d6-b559b0fab0f9}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Get" Id="{ce3a2eed-6b85-438d-91ce-6a9a094eb9e6}">
+      <Declaration><![CDATA[METHOD Get : INT
+VAR_INPUT
+	// indexing from end allowed
+	// index = 0 returns first element
+	// index = 1 returns seconds element
+	// index = -1 returns last element
+	// index = -2 return before-last element
+	index : INT;
+END_VAR
+VAR
+	current : POINTER TO Node := NULL;
+	getIndex : INT;
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = NULL THEN
+	Get := 0; RETURN;
+END_IF;
+
+// Return 0 for invalid indexes
+IF 	(index >= count) OR	// Indexing from begin begins with 0
+	(index < 0 AND index < -count) // Indexing from end begins with -1
+THEN
+	Get := 0; RETURN;
+END_IF
+
+getIndex := (count * BOOL_TO_INT(index < 0)) + index - 1;
+current := head;
+FOR i := 0 TO getIndex DO
+	IF current^.next = NULL THEN
+		Get := 0; RETURN;
+	END_IF
+	current := current^.next;
+END_FOR
+
+Get := current^.data; RETURN;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEmpty" Id="{c8daf5e1-89e2-448d-93c3-cdee434813f5}">
+      <Declaration><![CDATA[METHOD IsEmpty : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsEmpty := head = NULL;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{436d99dd-7958-4a05-a693-80735993e6d9}">
+      <Declaration><![CDATA[METHOD Remove : UINT
+VAR_INPUT
+	index : INT;
+END_VAR
+VAR
+	current : POINTER TO Node := NULL;
+	removeIndex : INT;	
+	nodeToRemove : POINTER TO Node;
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = NULL THEN
+	Remove := count; RETURN;
+END_IF;
+
+// Cancel removal for invalid indexes
+IF 	(index >= count) OR // Indexing from begin begins with 0
+	(index < 0 AND index < -count) // Indexing from end begins with -1
+THEN
+	Remove := count; RETURN;
+END_IF
+
+removeIndex := (count * BOOL_TO_INT(index < 0)) + index; 
+IF removeIndex = 0 THEN
+	nodeToRemove := head;
+	head := head^.next;
+ELSE
+	current := head;
+	FOR i := 0 TO removeIndex - 2 DO
+		current := current^.next;
+	END_FOR
+	nodeToRemove := current^.next;
+	current^.next := current^.next^.next;
+END_IF
+
+__DELETE(nodeToRemove);
+
+count := count - 1;
+
+Remove := count; RETURN;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

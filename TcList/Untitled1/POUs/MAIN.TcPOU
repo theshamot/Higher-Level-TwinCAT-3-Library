@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{1a83c779-8278-4247-a37a-c1c0cf8a1ae2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	list : LinkedList;
+	
+	first : BOOL := TRUE;
+	reinit : BOOL;
+	launch_test : BOOL;
+	test : ARRAY[0..30] OF INT;
+	
+	info : __SYSTEM.VAR_INFO;
+	
+	inttest : INT := 42;
+	iDelete : int	:= 0;
+//	str : Stringify;
+	
+	str : STRING;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF first THEN
+	first := FALSE;
+	list.Append(1);
+	list.Append(2);
+	list.Append(3);
+	list.Append(4);
+	list.Append(5);
+END_IF;
+IF reinit THEN
+	reinit := FALSE;
+	list.FB_init(FALSE, FALSE);
+	first := TRUE;
+END_IF
+IF launch_test THEN
+	launch_test := FALSE;
+	list.Remove(iDelete);
+END_IF
+
+info := __VARINFO(list);
+test[0] := list.Get(0);
+test[1] := list.Get(1);
+test[2] := list.Get(2);
+test[3] := list.Get(3);
+test[4] := list.Get(4);
+test[5] := list.Get(5);
+test[6] := list.Get(6);
+
+test[7] := list.Get(-1);
+test[8] := list.Get(-2);
+test[9] := list.Get(-3);
+test[10] := list.Get(-4);
+test[11] := list.Get(-5);
+test[12] := list.Get(-6);
+test[13] := list.Get(-7);
+
+list.count;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

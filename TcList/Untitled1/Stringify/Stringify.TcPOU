@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Stringify" Id="{3fe6bf26-a84d-41e6-8329-8b30923b5d8c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION Stringify : STRING
+VAR_INPUT
+	info : __SYSTEM.VAR_INFO;
+//	another : INT;
+END_VAR
+VAR
+//	info : __SYSTEM.VAR_INFO;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//info := __VARINFO(data);
+Stringify := info.Symbol;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
