@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Swap" Id="{f2039616-09f6-4daf-a7c3-d64000caac91}" SpecialFunc="None">
+    <Declaration><![CDATA[
+// Swaps values of to variables
+FUNCTION Swap
+VAR_IN_OUT
+	Number1		: REAL;
+	Number2		: REAL;
+END_VAR
+VAR
+	Temp		: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Just swap pointers
+Temp := Number1;
+Number1 := Number2;
+Number2 := Temp;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

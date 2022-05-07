@@ -16,6 +16,9 @@ Library should offer set of abstract objects such as Lists or Maps common in hig
   - IsEmpty()
 - Supports negative indexing (Get(-1) returns last element)
 - Methods can be chained (myList.Append(2).Append(3).Prepend(1))
+### QuickSort
+- function to sort ARRAY OF REAL using QuickSort algorythm
+- also contains function for easy swap of two REAL variable values
 
 ## What's ahead. Future will show which of these are actually possible in Tc
 - Somehow clean, unify, correct the way ListOfINT methods are using indexes. This object will then be used as reference to develop other List objects

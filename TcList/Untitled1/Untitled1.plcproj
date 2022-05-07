@@ -17,6 +17,15 @@
     <LibraryReferences>{f10956bf-d86e-4c65-8907-b5a581e25e11}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataProcessing\QuickSort\Partition.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\QuickSort\QuickSort.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\QuickSort\Swap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -36,14 +45,19 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\QuickSortTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Stringify\Stringify.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataProcessing\QuickSort" />
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="List" />
+    <Folder Include="DataProcessing" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

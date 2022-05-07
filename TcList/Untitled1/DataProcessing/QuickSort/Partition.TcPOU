@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Partition" Id="{b63eb0c0-e765-4648-89d2-e531f5b0464b}" SpecialFunc="None">
+    <Declaration><![CDATA[
+// Function used in QuickSort
+FUNCTION Partition : INT
+VAR_IN_OUT
+	ArrayOfREAL			: ARRAY[*] OF REAL; // Partition this array from index nLow to index nHigh
+END_VAR
+VAR_INPUT
+	FirstIndex			: INT; // Starting comparision index
+	LastIndex			: INT; // Ending comparision index
+END_VAR
+VAR
+	Pivot				: REAL; // Compared number
+	Leftwall			: INT; // New pivot location
+	Iterator			: INT; // For iterator variable
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Pivot := ArrayOfREAL[LastIndex];
+Leftwall := FirstIndex;
+
+FOR Iterator := FirstIndex TO LastIndex - 1 DO
+	IF ArrayOfREAL[Iterator] <= Pivot THEN
+		Swap(ArrayOfREAL[Iterator], ArrayOfREAL[Leftwall]);
+		Leftwall := Leftwall + 1;
+	END_IF
+END_FOR
+
+Swap(ArrayOfREAL[Leftwall], ArrayOfREAL[LastIndex]);
+
+Partition := Leftwall;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
