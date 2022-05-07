@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="QuickSort" Id="{f048965c-bbdb-4fc5-9401-87dae62d907b}" SpecialFunc="None">
     <Declaration><![CDATA[
-// Will sort array of REAL using QuickSort algorythm
+// Will sort array of REAL using QuickSort algorithm
 FUNCTION QuickSort
 VAR_IN_OUT
 	ArrayOfREALToSort	: ARRAY[*] OF REAL; // Array to sort
