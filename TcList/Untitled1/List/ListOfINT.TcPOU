@@ -1,33 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="ListOfINT" Id="{1f279f17-3c1a-46d4-9f80-fabd1b728487}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ListOfINT
+    <Declaration><![CDATA[
+FUNCTION_BLOCK ListOfINT
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	count : UINT;
 END_VAR
 VAR
-	head : POINTER TO Node := NULL;
-	tail : POINTER TO Node := NULL;
+	head : POINTER TO NodeINT := NULL;
+	tail : POINTER TO NodeINT := NULL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// linked list implementation reference:
+      <ST><![CDATA[
+// linked list implementation reference:
 // https://www.codesdope.com/blog/article/c-linked-lists-in-c-singly-linked-list/
 
 ]]></ST>
     </Implementation>
     <Method Name="Append" Id="{9a7178d1-781d-4472-b3c0-ee021b93d419}">
-      <Declaration><![CDATA[METHOD Append : REFERENCE TO ListOfINT
+      <Declaration><![CDATA[
+METHOD Append : REFERENCE TO ListOfINT
 VAR_INPUT
 	data : INT;
 END_VAR
 VAR
-	new : POINTER TO Node;
-END_VAR]]></Declaration>
+	new : POINTER TO NodeINT;
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[new := __NEW(Node);
+        <ST><![CDATA[
+Append REF= THIS^;
+
+new := __NEW(NodeINT);
 new^.data := data;
 new^.next := NULL;
 
@@ -38,14 +45,13 @@ ELSE
 	tail^.next := new;
 	tail := tail^.next;
 END_IF
-
 count := count + 1;
-
-Append REF= THIS^;]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{6f99c054-c793-45cb-86d6-b559b0fab0f9}">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
@@ -56,7 +62,8 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="Get" Id="{ce3a2eed-6b85-438d-91ce-6a9a094eb9e6}">
-      <Declaration><![CDATA[METHOD Get : INT
+      <Declaration><![CDATA[
+METHOD Get : INT
 VAR_INPUT
 	// indexing from end allowed
 	// index = 0 returns first element
@@ -66,12 +73,14 @@ VAR_INPUT
 	index : INT;
 END_VAR
 VAR
-	current : POINTER TO Node := NULL;
+	current : POINTER TO NodeINT := NULL;
 	getIndex : INT;
 	i : INT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF head = NULL THEN
+        <ST><![CDATA[
+IF head = NULL THEN
 	Get := 0; RETURN;
 END_IF;
 
@@ -90,70 +99,87 @@ FOR i := 0 TO getIndex DO
 	END_IF
 	current := current^.next;
 END_FOR
-
-Get := current^.data; RETURN;
+Get := current^.data;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="Insert" Id="{486f34c4-e09f-4631-8cfa-1a17bbbf8f87}">
-      <Declaration><![CDATA[METHOD Insert : REFERENCE TO ListOfINT
+      <Declaration><![CDATA[// Inserts new element into given index. Negative indexing is supported
+METHOD Insert : REFERENCE TO ListOfINT
 VAR_INPUT
+	(*
+		0 = Prepend;
+		1 = Insert into second position;
+		-2 = Insert into second position from end;
+		-1 = Append;
+	*)
 	index : INT;
 	data : INT;
 END_VAR
 VAR
-	new : POINTER TO Node;
-	current : POINTER TO Node;
+	new : POINTER TO NodeINT;
+	current : POINTER TO NodeINT;
 	insertIndex : INT;
 	i : INT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[new := __NEW(Node);
+        <ST><![CDATA[
+Insert REF= THIS^;
+
+new := __NEW(NodeINT);
 new^.data := data;
 
-// Return 0 for invalid indexes
-IF 	(index >= count) OR	// Indexing from begin begins with 0
-	(index < 0 AND index < -count) // Indexing from end begins with -1
+insertIndex := ((count + 1) * BOOL_TO_INT(index < 0)) + index;
+NULL;
+IF insertIndex >= count // Index too high -> append to end
 THEN
 	Append(data);
-	Insert := count := count + 1; RETURN;
+	RETURN;
+ELSIF insertIndex <= 0 // Index too high from the end -> prepend to beginning
+THEN
+	Prepend(data);
+	RETURN;
 END_IF
 
-//TODO: does not work
-insertIndex := (count * BOOL_TO_INT(index < 0)) + index;
 current := head;
-FOR i := 0 TO insertIndex DO
+FOR i := 1 TO insertIndex - 1 DO
 	current := current^.next;
 END_FOR
 new^.next := current^.next;
-current := new;
-
+current^.next := new;
 count := count + 1;
-
-Insert REF= THIS^;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsEmpty" Id="{c8daf5e1-89e2-448d-93c3-cdee434813f5}">
-      <Declaration><![CDATA[METHOD IsEmpty : BOOL
+      <Declaration><![CDATA[
+METHOD IsEmpty : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsEmpty := head = NULL;]]></ST>
+        <ST><![CDATA[
+IsEmpty := head = NULL;
+]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Push" Id="{d9b48c25-41c0-414c-aa3b-cdefc4eafd14}">
-      <Declaration><![CDATA[// Pushes data to the beginning of the list
-METHOD Push : reference TO ListOfINT
+    <Method Name="Prepend" Id="{d9b48c25-41c0-414c-aa3b-cdefc4eafd14}">
+      <Declaration><![CDATA[
+// Pushes data to the beginning of the list
+METHOD Prepend : REFERENCE TO ListOfINT
 VAR_INPUT
 	data : INT;
 END_VAR
 VAR
-	new : POINTER TO Node;
-END_VAR]]></Declaration>
+	new : POINTER TO NodeINT;
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[new := __NEW(Node);
+        <ST><![CDATA[
+Prepend REF= THIS^;
+
+new := __NEW(NodeINT);
 new^.data := data;
 new^.next := head;
 
@@ -161,36 +187,38 @@ IF head = NULL THEN
 	head := new;
 	tail := new;
 ELSE
-	head^.next := head;
 	head := new;
 END_IF
-
 count := count + 1;
-
-Push REF= THIS^;]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Remove" Id="{436d99dd-7958-4a05-a693-80735993e6d9}">
-      <Declaration><![CDATA[METHOD Remove : REFERENCE TO ListOfINT;
+      <Declaration><![CDATA[
+METHOD Remove : REFERENCE TO ListOfINT;
 VAR_INPUT
 	index : INT;
 END_VAR
 VAR
-	current : POINTER TO Node := NULL;
+	current : POINTER TO NodeINT := NULL;
 	removeIndex : INT;	
-	nodeToRemove : POINTER TO Node;
+	nodeToRemove : POINTER TO NodeINT;
 	i : INT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF head = NULL THEN
-	Remove := count; RETURN;
+        <ST><![CDATA[
+Remove REF= THIS^;
+
+IF head = NULL THEN
+	RETURN;
 END_IF;
 
 // Cancel removal for invalid indexes
 IF 	(index >= count) OR // Indexing from begin begins with 0
 	(index < 0 AND index < -count) // Indexing from end begins with -1
 THEN
-	Remove := count; RETURN;
+	RETURN;
 END_IF
 
 removeIndex := (count * BOOL_TO_INT(index < 0)) + index; 
@@ -205,12 +233,8 @@ ELSE
 	nodeToRemove := current^.next;
 	current^.next := current^.next^.next;
 END_IF
-
 __DELETE(nodeToRemove);
-
 count := count - 1;
-
-Remove REF= THIS^;
 ]]></ST>
       </Implementation>
     </Method>

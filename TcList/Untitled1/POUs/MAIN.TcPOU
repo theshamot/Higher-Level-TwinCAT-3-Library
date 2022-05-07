@@ -1,63 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="MAIN" Id="{1a83c779-8278-4247-a37a-c1c0cf8a1ae2}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM MAIN
+    <Declaration><![CDATA[
+PROGRAM MAIN
 VAR
-	listExample : ListOfINT;
-	
-	first : BOOL := TRUE;
-	reinit : BOOL;
-	launch_test : BOOL;
-	test : ARRAY[0..30] OF INT;
-	
-	info : __SYSTEM.VAR_INFO;
-	
-	inttest : INT := 42;
-	test_index : int	:= 0;
-//	str : Stringify;
-	
-	str : STRING;
-	
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF first THEN
-	first := FALSE;
-	listExample.Append(1);
-	listExample.Append(2);
-	listExample.Append(3);
-	listExample.Append(4);
-	listExample.Append(5).Append(6);
-END_IF;
-IF reinit THEN
-	reinit := FALSE;
-	listExample.FB_init(FALSE, FALSE);
-	first := TRUE;
-END_IF
-IF launch_test THEN
-	launch_test := FALSE;
-	listExample.Insert(test_index, inttest);
-END_IF
-
-info := __VARINFO(listExample);
-test[0] := listExample.Get(0);
-test[1] := listExample.Get(1);
-test[2] := listExample.Get(2);
-test[3] := listExample.Get(3);
-test[4] := listExample.Get(4);
-test[5] := listExample.Get(5);
-test[6] := listExample.Get(6);
-
-test[7] := listExample.Get(-1);
-test[8] := listExample.Get(-2);
-test[9] := listExample.Get(-3);
-test[10] := listExample.Get(-4);
-test[11] := listExample.Get(-5);
-test[12] := listExample.Get(-6);
-test[13] := listExample.Get(-7);
-
-listExample.count;]]></ST>
+      <ST><![CDATA[
+ListOfINTTest();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -21,13 +21,16 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="LinkedList\ListOfINT.TcPOU">
+    <Compile Include="List\ListOfINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LinkedList\Node.TcDUT">
+    <Compile Include="List\NodeINT.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ListOfINTTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -40,7 +43,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
-    <Folder Include="LinkedList" />
+    <Folder Include="List" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

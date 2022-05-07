@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <DUT Name="Node" Id="{ec13c4f1-266e-482d-9b20-9541e4253173}">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="NodeINT" Id="{ec13c4f1-266e-482d-9b20-9541e4253173}">
     <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
-TYPE Node :
+TYPE NodeINT :
 STRUCT
 	data : INT;
-	next : POINTER TO Node;
+	next : POINTER TO NodeINT;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ListOfINTTest" Id="{ca58163d-29f3-4d32-b269-3cf95117592c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ListOfINTTest
+VAR
+	listOfINTExample : ListOfINT;
+	
+	// init
+	first : BOOL := TRUE;
+	reinit : BOOL;
+	
+	// insert test
+	insertTest : BOOL;
+	insertNumber : INT := 42;
+	insertIndex : INT := 0;
+	
+	// remove test
+	removeTest : BOOL;
+	removeIndex : INT := 0;
+	
+	// prepend test
+	prependTest : BOOL;
+	prependData : INT := -10;
+	
+	// debug
+	test : ARRAY[0..30] OF INT;
+	
+	// hokusy pokusy
+	info : __SYSTEM.VAR_INFO;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF first THEN
+	first := FALSE;
+	listOfINTExample.Append(3);
+	listOfINTExample.Append(4);
+	listOfINTExample.Append(5).Prepend(2).Prepend(1);
+END_IF;
+IF reinit THEN
+	reinit := FALSE;
+	listOfINTExample.FB_init(FALSE, FALSE);
+	first := TRUE;
+END_IF
+
+IF insertTest THEN
+	insertTest := FALSE;
+	listOfINTExample.Insert(insertIndex, insertNumber);
+END_IF
+IF removeTest THEN
+	removeTest := FALSE;
+	listOfINTExample.Remove(removeIndex);
+END_IF
+IF prependTest THEN
+	prependTest := FALSE;
+	listOfINTExample.Prepend(prependData);
+END_IF
+
+info := __VARINFO(listOfINTExample);
+test[0] := listOfINTExample.Get(0);
+test[1] := listOfINTExample.Get(1);
+test[2] := listOfINTExample.Get(2);
+test[3] := listOfINTExample.Get(3);
+test[4] := listOfINTExample.Get(4);
+test[5] := listOfINTExample.Get(5);
+test[6] := listOfINTExample.Get(6);
+test[7] := listOfINTExample.Get(7);
+test[8] := listOfINTExample.Get(8);
+test[9] := listOfINTExample.Get(9);
+
+test[20] := listOfINTExample.Get(-1);
+test[21] := listOfINTExample.Get(-2);
+test[22] := listOfINTExample.Get(-3);
+test[23] := listOfINTExample.Get(-4);
+test[24] := listOfINTExample.Get(-5);
+test[25] := listOfINTExample.Get(-6);
+test[26] := listOfINTExample.Get(-7);
+test[27] := listOfINTExample.Get(-8);
+test[28] := listOfINTExample.Get(-9);
+test[29] := listOfINTExample.Get(-10);
+
+listOfINTExample.count;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
