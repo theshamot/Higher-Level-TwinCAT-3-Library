@@ -21,7 +21,7 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="LinkedList\LinkedList.TcPOU">
+    <Compile Include="LinkedList\ListOfINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LinkedList\Node.TcDUT">

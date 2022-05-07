@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="LinkedList" Id="{1f279f17-3c1a-46d4-9f80-fabd1b728487}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK LinkedList
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ListOfINT" Id="{1f279f17-3c1a-46d4-9f80-fabd1b728487}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ListOfINT
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -19,31 +19,29 @@ END_VAR
 ]]></ST>
     </Implementation>
     <Method Name="Append" Id="{9a7178d1-781d-4472-b3c0-ee021b93d419}">
-      <Declaration><![CDATA[METHOD Append : UINT
+      <Declaration><![CDATA[METHOD Append : REFERENCE TO ListOfINT
 VAR_INPUT
-	number : INT;
-	
+	data : INT;
 END_VAR
 VAR
-	tmp : POINTER TO Node;
-	
+	new : POINTER TO Node;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[tmp := __NEW(Node);
-tmp^.data := number;
-tmp^.next := NULL;
+        <ST><![CDATA[new := __NEW(Node);
+new^.data := data;
+new^.next := NULL;
 
 IF head = NULL THEN
-	head := tmp;
-	tail := tmp;
+	head := new;
+	tail := new;
 ELSE
-	tail^.next := tmp;
+	tail^.next := new;
 	tail := tail^.next;
 END_IF
 
 count := count + 1;
 
-Append := count;]]></ST>
+Append REF= THIS^;]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{6f99c054-c793-45cb-86d6-b559b0fab0f9}">
@@ -97,6 +95,45 @@ Get := current^.data; RETURN;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Insert" Id="{486f34c4-e09f-4631-8cfa-1a17bbbf8f87}">
+      <Declaration><![CDATA[METHOD Insert : REFERENCE TO ListOfINT
+VAR_INPUT
+	index : INT;
+	data : INT;
+END_VAR
+VAR
+	new : POINTER TO Node;
+	current : POINTER TO Node;
+	insertIndex : INT;
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[new := __NEW(Node);
+new^.data := data;
+
+// Return 0 for invalid indexes
+IF 	(index >= count) OR	// Indexing from begin begins with 0
+	(index < 0 AND index < -count) // Indexing from end begins with -1
+THEN
+	Append(data);
+	Insert := count := count + 1; RETURN;
+END_IF
+
+//TODO: does not work
+insertIndex := (count * BOOL_TO_INT(index < 0)) + index;
+current := head;
+FOR i := 0 TO insertIndex DO
+	current := current^.next;
+END_FOR
+new^.next := current^.next;
+current := new;
+
+count := count + 1;
+
+Insert REF= THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="IsEmpty" Id="{c8daf5e1-89e2-448d-93c3-cdee434813f5}">
       <Declaration><![CDATA[METHOD IsEmpty : BOOL
 VAR_INPUT
@@ -106,8 +143,35 @@ END_VAR
         <ST><![CDATA[IsEmpty := head = NULL;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Push" Id="{d9b48c25-41c0-414c-aa3b-cdefc4eafd14}">
+      <Declaration><![CDATA[// Pushes data to the beginning of the list
+METHOD Push : reference TO ListOfINT
+VAR_INPUT
+	data : INT;
+END_VAR
+VAR
+	new : POINTER TO Node;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[new := __NEW(Node);
+new^.data := data;
+new^.next := head;
+
+IF head = NULL THEN
+	head := new;
+	tail := new;
+ELSE
+	head^.next := head;
+	head := new;
+END_IF
+
+count := count + 1;
+
+Push REF= THIS^;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Remove" Id="{436d99dd-7958-4a05-a693-80735993e6d9}">
-      <Declaration><![CDATA[METHOD Remove : UINT
+      <Declaration><![CDATA[METHOD Remove : REFERENCE TO ListOfINT;
 VAR_INPUT
 	index : INT;
 END_VAR
@@ -146,7 +210,7 @@ __DELETE(nodeToRemove);
 
 count := count - 1;
 
-Remove := count; RETURN;
+Remove REF= THIS^;
 ]]></ST>
       </Implementation>
     </Method>
