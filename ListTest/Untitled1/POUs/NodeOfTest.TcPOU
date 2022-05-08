@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="NodeOfTest" Id="{e916b9b9-e1bf-4cae-a8c6-1ea565c9be20}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK NodeOfTest EXTENDS Node
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="data" Id="{8a92affa-770d-4ada-9202-1a21fd11fd5e}">
+      <Declaration><![CDATA[{attribute 'monitoring:= 'variable'}
+PROPERTY data : STRING]]></Declaration>
+      <Get Name="Get" Id="{067f7be3-2bac-4463-a192-8f402b2622f3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5f3f6679-be24-4f9b-beae-0a752a5802fb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

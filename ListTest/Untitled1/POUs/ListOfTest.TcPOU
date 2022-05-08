@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ListOfTest" Id="{183e14cd-ee8b-4013-8501-80cf739dd2df}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ListOfTest EXTENDS List
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

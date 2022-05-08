@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{d0c2d6c6-1d39-4069-aa86-645ff1e04f93}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	testList : List;
+	testList2 : ListOfTest;
+	
+	test : BOOL;
+	
+	infoTest : BOOL;
+	info : __SYSTEM.VAR_INFO;
+	var1 : REAL := 3.14;
+	var2 : REAL := 0;
+	pInfo : POINTER TO BYTE;
+	{attribute 'displaymode':='hex'}
+	offset : ULINT;
+	pReal : POINTER TO BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF test THEN
+	test := FALSE;
+	testList2.Append(5);
+END_IF
+
+info := __VARINFO(var1);
+offset := info.ByteAddress;// + info.ByteOffset;
+pInfo := offset;
+//MEMCPY(ADR(var2), pInfo, 4); //this works
+IF infoTest THEN
+	infoTest := FALSE;
+	IF info.TypeName = 'REAL' THEN
+		pReal := __NEW(REAL);
+		MEMCPY(pReal, pInfo, 4); //this not
+		var2 := pReal^;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

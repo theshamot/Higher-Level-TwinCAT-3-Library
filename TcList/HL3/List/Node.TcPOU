@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Node" Id="{6ca422d5-da8c-4e56-80fb-ca3392e57996}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Node IMPLEMENTS IListItem
+VAR_IN_OUT
+//	data : INT;
+//	next : POINTER TO Node;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="data" Id="{42a49789-e337-478f-90a9-4d174f51e741}">
+      <Declaration><![CDATA[PROPERTY data : INT]]></Declaration>
+      <Get Name="Get" Id="{1cfacef1-85f0-4696-8a9c-29e617b1bdf3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d4edf611-b6c6-4a37-bed1-5d4e3a7397f6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="next" Id="{d1234b62-4117-4ed7-94bb-47bc3d3babca}">
+      <Declaration><![CDATA[PROPERTY next : POINTER TO Node]]></Declaration>
+      <Get Name="Get" Id="{72b192ab-da2a-439b-87f7-53e0adca7535}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2452b0f3-a460-4a29-90a9-b627107e255e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.29">
-	<Project ProjectGUID="{873DF92D-0AD9-4B09-B6DD-51AAB8FC07DA}" Target64Bit="true" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{04769B9F-AAA0-408D-B6AE-754B707473D1}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -9,9 +9,9 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project GUID="{48F5B18F-0365-463C-8D95-FDF5766115A9}" Name="HL3" PrjFilePath="HL3\HL3.plcproj" TmcFilePath="HL3\HL3.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc">
-					<Name>HL3 Instance</Name>
+			<Project GUID="{7C06093F-2972-41D5-A166-C955EA7E25E8}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
 						<Context>

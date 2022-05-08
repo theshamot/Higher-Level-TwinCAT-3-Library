@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="List" Id="{36da1aad-070e-4dc9-a97f-6804d8c29941}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK List
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	count : UINT;
+END_VAR
+VAR
+	head : POINTER TO Node := NULL;
+	tail : POINTER TO Node := NULL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// linked list implementation reference:
+// https://www.codesdope.com/blog/article/c-linked-lists-in-c-singly-linked-list/
+
+(*
+	Will try to create list which can contain custom FB as datatype.
+	Currently I'm trying to accomplish this using interfaces.
+
+	Maybe this will help
+	https://aticleworld.com/generic-linked-list-in-c/
+	
+	In ListTest/../MAIN are experiments with creation of data
+
+
+*)
+]]></ST>
+    </Implementation>
+    <Method Name="Append" Id="{1e1f09ec-b8ab-4564-bd5e-1ec5942968a2}">
+      <Declaration><![CDATA[
+METHOD Append : REFERENCE TO List
+VAR_INPUT
+	data : INT;
+END_VAR
+VAR
+	new : POINTER TO Node;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Append REF= THIS^;
+
+new := __NEW(Node);
+new^.data := data;
+new^.next := NULL;
+
+IF head = NULL THEN
+	head := new;
+	tail := new;
+ELSE
+	tail^.next := new;
+	tail := tail^.next;
+END_IF
+count := count + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{0226c1a8-7221-49d2-9651-621473e3dd48}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Get" Id="{27f0a3aa-73ee-439b-a440-9d7ae0b874e3}">
+      <Declaration><![CDATA[
+METHOD Get : __System.AnyType
+VAR_INPUT
+	// indexing from end allowed
+	// index = 0 returns first element
+	// index = 1 returns seconds element
+	// index = -1 returns last element
+	// index = -2 return before-last element
+	index : INT;
+END_VAR
+VAR
+	current : POINTER TO Node := NULL;
+	getIndex : INT;
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF head = NULL THEN
+//	Get := 0;
+	RETURN;
+END_IF;
+
+// Calculate actual index in List
+getIndex := (count * BOOL_TO_INT(index < 0)) + index;
+
+// Return 0 for invalid indexes
+IF 	(getIndex >= count) OR	// Indexing from begin begins with 0
+	(getIndex < 0) // Indexing from end begins with -1
+THEN
+//	Get := 0;
+	RETURN;
+END_IF
+
+
+current := head;
+FOR i := 1 TO getIndex DO // we already got head in previous line, that's why it's from 1
+	IF current^.next = NULL THEN
+//		Get := 0;
+		RETURN;
+	END_IF
+	current := current^.next;
+END_FOR
+Get := current^.data;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{c7ac0742-b796-46ea-b82a-ea65ec86bf7a}">
+      <Declaration><![CDATA[// Inserts new element into given index. Negative indexing is supported
+METHOD Insert : REFERENCE TO List
+VAR_INPUT
+	(*
+		0 = Prepend;
+		1 = Insert into second position;
+		-2 = Insert into second position from end;
+		-1 = Append;
+	*)
+	index : INT;
+	data : ANY;
+END_VAR
+VAR
+	new : POINTER TO Node;
+	current : POINTER TO Node;
+	insertIndex : INT;
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Insert REF= THIS^;
+
+new := __NEW(Node);
+new^.data := data;
+
+// Calculate actual index in List
+insertIndex := ((count + 1) * BOOL_TO_INT(index < 0)) + index;
+
+IF insertIndex >= count // Index too high -> append to end
+THEN
+	Append(data);
+	RETURN;
+ELSIF insertIndex <= 0 // Index too high from the end -> prepend to beginning
+THEN
+	Prepend(data);
+	RETURN;
+END_IF
+
+current := head;
+FOR i := 1 TO insertIndex - 1 DO
+	current := current^.next;
+END_FOR
+new^.next := current^.next;
+current^.next := new;
+count := count + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsEmpty" Id="{48c36a62-7159-4bac-9043-c9f34faa0784}">
+      <Declaration><![CDATA[
+METHOD IsEmpty : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IsEmpty := head = NULL;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Prepend" Id="{4d27f5a1-2c00-46ed-9bca-6cb1700691e9}">
+      <Declaration><![CDATA[
+// Pushes data to the beginning of the list
+METHOD Prepend : REFERENCE TO List
+VAR_INPUT
+	data : ANY;
+END_VAR
+VAR
+	new : POINTER TO Node;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Prepend REF= THIS^;
+
+new := __NEW(Node);
+new^.data := data;
+new^.next := head;
+
+IF head = NULL THEN
+	head := new;
+	tail := new;
+ELSE
+	head := new;
+END_IF
+count := count + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{a48b451e-3e6f-4bbb-a1ce-018cff54d99b}">
+      <Declaration><![CDATA[
+METHOD Remove : REFERENCE TO List;
+VAR_INPUT
+	index : INT;
+END_VAR
+VAR
+	current : POINTER TO Node := NULL;
+	removeIndex : INT;	
+	nodeToRemove : POINTER TO Node;
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Remove REF= THIS^;
+
+IF head = NULL THEN
+	RETURN;
+END_IF;
+
+// Calculate actual index in List
+removeIndex := (count * BOOL_TO_INT(index < 0)) + index; 
+
+// Cancel removal for invalid indexes
+IF 	(removeIndex >= count) OR // Indexing from begin begins with 0
+	(removeIndex < 0) // Indexing from end begins with -1
+THEN
+	RETURN;
+END_IF
+
+IF removeIndex = 0 THEN
+	nodeToRemove := head;
+	head := head^.next;
+ELSE
+	current := head;
+	FOR i := 1 TO removeIndex - 1 DO
+		current := current^.next;
+	END_FOR
+	nodeToRemove := current^.next;
+	current^.next := current^.next^.next;
+END_IF
+IF nodeToRemove = tail THEN
+	tail := current;
+END_IF
+__DELETE(nodeToRemove);
+count := count - 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveAll" Id="{76f34ed4-1c4a-47a9-9afe-52cf0b0c1d2d}">
+      <Declaration><![CDATA[
+METHOD RemoveAll : REFERENCE TO List
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+WHILE head <> NULL DO
+	Remove(0);
+END_WHILE
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
