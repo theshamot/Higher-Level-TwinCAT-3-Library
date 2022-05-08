@@ -85,17 +85,20 @@ IF head = NULL THEN
 	RETURN;
 END_IF;
 
+// Calculate actual index in List
+getIndex := (count * BOOL_TO_INT(index < 0)) + index;
+
 // Return 0 for invalid indexes
-IF 	(index >= count) OR	// Indexing from begin begins with 0
-	(index < 0 AND index < -count) // Indexing from end begins with -1
+IF 	(getIndex >= count) OR	// Indexing from begin begins with 0
+	(getIndex < 0) // Indexing from end begins with -1
 THEN
 	Get := 0;
 	RETURN;
 END_IF
 
-getIndex := (count * BOOL_TO_INT(index < 0)) + index - 1;
+
 current := head;
-FOR i := 0 TO getIndex DO
+FOR i := 1 TO getIndex DO // we already got head in previous line, that's why it's from 1
 	IF current^.next = NULL THEN
 		Get := 0; RETURN;
 	END_IF
@@ -132,8 +135,9 @@ Insert REF= THIS^;
 new := __NEW(NodeINT);
 new^.data := data;
 
+// Calculate actual index in List
 insertIndex := ((count + 1) * BOOL_TO_INT(index < 0)) + index;
-NULL;
+
 IF insertIndex >= count // Index too high -> append to end
 THEN
 	Append(data);
@@ -216,20 +220,22 @@ IF head = NULL THEN
 	RETURN;
 END_IF;
 
+// Calculate actual index in List
+removeIndex := (count * BOOL_TO_INT(index < 0)) + index; 
+
 // Cancel removal for invalid indexes
-IF 	(index >= count) OR // Indexing from begin begins with 0
-	(index < 0 AND index < -count) // Indexing from end begins with -1
+IF 	(removeIndex >= count) OR // Indexing from begin begins with 0
+	(removeIndex < 0) // Indexing from end begins with -1
 THEN
 	RETURN;
 END_IF
 
-removeIndex := (count * BOOL_TO_INT(index < 0)) + index; 
 IF removeIndex = 0 THEN
 	nodeToRemove := head;
 	head := head^.next;
 ELSE
 	current := head;
-	FOR i := 0 TO removeIndex - 2 DO
+	FOR i := 1 TO removeIndex - 1 DO
 		current := current^.next;
 	END_FOR
 	nodeToRemove := current^.next;
@@ -244,14 +250,17 @@ count := count - 1;
       </Implementation>
     </Method>
     <Method Name="RemoveAll" Id="{3f45cd8a-89c9-4fdc-a178-7158e848eaf5}">
-      <Declaration><![CDATA[METHOD RemoveAll : REFERENCE TO ListOfINT
+      <Declaration><![CDATA[
+METHOD RemoveAll : REFERENCE TO ListOfINT
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[WHILE head <> NULL DO
+        <ST><![CDATA[
+WHILE head <> NULL DO
 	Remove(0);
-END_WHILE]]></ST>
+END_WHILE
+]]></ST>
       </Implementation>
     </Method>
   </POU>

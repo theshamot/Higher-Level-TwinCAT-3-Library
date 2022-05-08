@@ -38,7 +38,7 @@ END_VAR
 	first := FALSE;
 	listOfINTExample.Append(3);
 	listOfINTExample.Append(4);
-//	listOfINTExample.Append(5).Prepend(2).Prepend(1);
+	listOfINTExample.Append(5).Prepend(2).Prepend(1);
 END_IF;
 IF reinit THEN
 	reinit := FALSE;
