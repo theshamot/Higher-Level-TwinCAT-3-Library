@@ -81,14 +81,16 @@ END_VAR
       <Implementation>
         <ST><![CDATA[
 IF head = NULL THEN
-	Get := 0; RETURN;
+	Get := 0;
+	RETURN;
 END_IF;
 
 // Return 0 for invalid indexes
 IF 	(index >= count) OR	// Indexing from begin begins with 0
 	(index < 0 AND index < -count) // Indexing from end begins with -1
 THEN
-	Get := 0; RETURN;
+	Get := 0;
+	RETURN;
 END_IF
 
 getIndex := (count * BOOL_TO_INT(index < 0)) + index - 1;
@@ -233,9 +235,23 @@ ELSE
 	nodeToRemove := current^.next;
 	current^.next := current^.next^.next;
 END_IF
+IF nodeToRemove = tail THEN
+	tail := current;
+END_IF
 __DELETE(nodeToRemove);
 count := count - 1;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveAll" Id="{3f45cd8a-89c9-4fdc-a178-7158e848eaf5}">
+      <Declaration><![CDATA[METHOD RemoveAll : REFERENCE TO ListOfINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WHILE head <> NULL DO
+	Remove(0);
+END_WHILE]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -3,7 +3,6 @@ Library should offer set of abstract objects such as Lists or Maps common in hig
 
 ## Current status
 ### ListOfINT
-- For now the only thing in this project
 - Can only carry INT data
 - Dynamically allocated elements = list has variable length
 - Does not support RETAIN
@@ -24,7 +23,8 @@ Library should offer set of abstract objects such as Lists or Maps common in hig
 - Somehow clean, unify, correct the way ListOfINT methods are using indexes. This object will then be used as reference to develop other List objects
 - List (= ListOfANY)
 - ListOf\<some more types>
-- List.Contains(value) : bool
+- List.Contains(value) : int index
+- List.Sort()
 - Map<Key : String, Value : ANY> based on List
 - Strigifier - convert anything to string including fb properties. This could also contain JSONizer.
 - ? Some sort of variable logger? Example: Logger.Log(__VARINFO). Using __VARINFO we can get variable name in addition to its value.

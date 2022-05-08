@@ -22,6 +22,9 @@ VAR
 	prependTest : BOOL;
 	prependData : INT := -10;
 	
+	// removeAll test
+	removeAllTest : BOOL;
+	
 	// debug
 	test : ARRAY[0..30] OF INT;
 	
@@ -35,7 +38,7 @@ END_VAR
 	first := FALSE;
 	listOfINTExample.Append(3);
 	listOfINTExample.Append(4);
-	listOfINTExample.Append(5).Prepend(2).Prepend(1);
+//	listOfINTExample.Append(5).Prepend(2).Prepend(1);
 END_IF;
 IF reinit THEN
 	reinit := FALSE;
@@ -51,10 +54,11 @@ IF removeTest THEN
 	removeTest := FALSE;
 	listOfINTExample.Remove(removeIndex);
 END_IF
-IF prependTest THEN
-	prependTest := FALSE;
-	listOfINTExample.Prepend(prependData);
+IF removeAllTest THEN
+	removeAllTest := FALSE;
+	listOfINTExample.RemoveAll();
 END_IF
+
 
 info := __VARINFO(listOfINTExample);
 test[0] := listOfINTExample.Get(0);
