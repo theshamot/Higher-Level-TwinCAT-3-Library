@@ -9,7 +9,7 @@ VAR
 	testVar	: REAL;
 	appendTest : BOOL;
 	getTest : BOOL;
-	getVar : REAL;
+	getVar : ARRAY[0..19] OF REAL;
 	
 END_VAR
 ]]></Declaration>
@@ -17,11 +17,18 @@ END_VAR
       <ST><![CDATA[
 IF appendTest THEN
 	appendTest := FALSE;
+	testVar := 1;
+	testList.Append(testVar);
+	testVar := -16;
+	testList.Append(testVar);
+	testVar := 3.14;
 	testList.Append(testVar);
 END_IF
 IF getTest THEN
 	getTest := FALSE;
-	testList.Get(0, getVar);
+	testList.Get(0, getVar[0]);
+	testList.Get(1, getVar[1]);
+	testList.Get(2, getVar[2]);
 END_IF
 ]]></ST>
     </Implementation>
