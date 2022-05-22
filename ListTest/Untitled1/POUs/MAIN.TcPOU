@@ -7,6 +7,9 @@ VAR
 	testList2 : ListOfTest;
 	
 	test : BOOL;
+	tesst : TestStructure;
+	testinfo : __SYSTEM.VAR_INFO;
+	newuser : POINTER TO BYTE;
 	
 	infoTest : BOOL;
 	info : __SYSTEM.VAR_INFO;
@@ -22,7 +25,10 @@ END_VAR
       <ST><![CDATA[IF test THEN
 	test := FALSE;
 	testList2.Append(5);
+	newuser := __NEW(BYTE, 5);
 END_IF
+
+
 
 info := __VARINFO(var1);
 offset := info.ByteAddress;// + info.ByteOffset;

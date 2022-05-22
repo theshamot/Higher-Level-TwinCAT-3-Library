@@ -34,22 +34,16 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="List\IListItem.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="List\ListOfINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="List\List.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="List\Node.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="List\NodeINT.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="List\NodeST.TcDUT">
+    <Compile Include="List\Node.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
@@ -67,12 +61,6 @@
     <Compile Include="POUs\QuickSortTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\testingUniversalList\TestFB.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\testingUniversalList\TestStructure.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Stringify\Stringify.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -83,7 +71,6 @@
     <Folder Include="GVLs" />
     <Folder Include="List" />
     <Folder Include="DataProcessing" />
-    <Folder Include="POUs\testingUniversalList" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
@@ -111,9 +98,6 @@
     <SubObject Include="List.FB_init">
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </SubObject>
-    <SubObject Include="List.Get">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
     <SubObject Include="List.Insert">
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </SubObject>
@@ -130,11 +114,16 @@
       <ExcludeFromBuild>true</ExcludeFromBuild>
     </SubObject>
   </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="Base Interfaces,newest,System">
+      <Namespace>IBaseLibrary</Namespace>
+    </LibraryReference>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
@@ -186,13 +175,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

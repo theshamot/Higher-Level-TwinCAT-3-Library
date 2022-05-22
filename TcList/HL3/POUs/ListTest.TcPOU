@@ -1,18 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="ListTest" Id="{cc3985ed-fce3-4d48-b0a1-7894fd5b4089}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM ListTest
+    <Declaration><![CDATA[
+PROGRAM ListTest
 VAR
 	//testing
-	ts : TestStructure;
-	tfb : TestFB;
-	
 	testList : List;
-	info : __SYSTEM.VAR_INFO;
+	testVar	: REAL;
+	appendTest : BOOL;
+	getTest : BOOL;
+	getVar : REAL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[info := __VARINFO(tfb);]]></ST>
+      <ST><![CDATA[
+IF appendTest THEN
+	appendTest := FALSE;
+	testList.Append(testVar);
+END_IF
+IF getTest THEN
+	getTest := FALSE;
+	testList.Get(0, getVar);
+END_IF
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

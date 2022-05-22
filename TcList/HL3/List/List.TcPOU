@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="List" Id="{36da1aad-070e-4dc9-a97f-6804d8c29941}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK List
+    <Declaration><![CDATA[
+FUNCTION_BLOCK List
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	count : UINT;
+	_typeClass : __SYSTEM.TYPE_CLASS; // Type of data object - primitives or Userdef
+	_classSize : DINT; // Size of data object - useful to check type of Userdef typeclass
 END_VAR
 VAR
 	head : POINTER TO Node := NULL;
@@ -34,7 +37,7 @@ END_VAR
       <Declaration><![CDATA[
 METHOD Append : REFERENCE TO List
 VAR_INPUT
-	data : INT;
+	data : ANY;
 END_VAR
 VAR
 	new : POINTER TO Node;
@@ -44,8 +47,14 @@ END_VAR
         <ST><![CDATA[
 Append REF= THIS^;
 
+IF NOT IsTypeClassCorrect(data) THEN
+	RETURN;
+END_IF
+SetTypeClass(data);
+
 new := __NEW(Node);
-new^.data := data;
+new^.data := __NEW(BYTE, classSize);
+MEMCPY(new^.data, data.pValue, classSize);
 new^.next := NULL;
 
 IF head = NULL THEN
@@ -59,6 +68,36 @@ count := count + 1;
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="classSize" Id="{7e6085c6-96ce-42a1-8b88-7186e2707c52}">
+      <Declaration><![CDATA[
+//{attribute 'monitoring' := 'call'}
+// Size of data object - useful to check type of Userdef typeclass
+PROPERTY classSize : DINT
+]]></Declaration>
+      <Get Name="Get" Id="{751ed563-245e-4251-8f48-793bea02d2dd}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+classSize := _classSize;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d28883e4-09ef-4987-9ae9-de437f5febd2}">
+        <Declaration><![CDATA[
+PRIVATE 
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+_classSize := classSize;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="FB_init" Id="{0226c1a8-7221-49d2-9651-621473e3dd48}">
       <Declaration><![CDATA[
 METHOD FB_init : BOOL
@@ -73,7 +112,7 @@ END_VAR
     </Method>
     <Method Name="Get" Id="{27f0a3aa-73ee-439b-a440-9d7ae0b874e3}">
       <Declaration><![CDATA[
-METHOD Get : __System.AnyType
+METHOD Get : REFERENCE TO List
 VAR_INPUT
 	// indexing from end allowed
 	// index = 0 returns first element
@@ -81,6 +120,7 @@ VAR_INPUT
 	// index = -1 returns last element
 	// index = -2 return before-last element
 	index : INT;
+	destinationVariable : ANY;
 END_VAR
 VAR
 	current : POINTER TO Node := NULL;
@@ -90,8 +130,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+IF NOT IsTypeClassCorrect(destinationVariable) THEN
+	RETURN;
+END_IF;
+
 IF head = NULL THEN
-//	Get := 0;
 	RETURN;
 END_IF;
 
@@ -102,7 +145,6 @@ getIndex := (count * BOOL_TO_INT(index < 0)) + index;
 IF 	(getIndex >= count) OR	// Indexing from begin begins with 0
 	(getIndex < 0) // Indexing from end begins with -1
 THEN
-//	Get := 0;
 	RETURN;
 END_IF
 
@@ -110,12 +152,11 @@ END_IF
 current := head;
 FOR i := 1 TO getIndex DO // we already got head in previous line, that's why it's from 1
 	IF current^.next = NULL THEN
-//		Get := 0;
 		RETURN;
 	END_IF
 	current := current^.next;
 END_FOR
-Get := current^.data;
+MEMMOVE(destinationVariable.pValue, current^.data, classSize);
 ]]></ST>
       </Implementation>
     </Method>
@@ -178,6 +219,23 @@ END_VAR
       <Implementation>
         <ST><![CDATA[
 IsEmpty := head = NULL;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsTypeClassCorrect" Id="{a44011b5-3af2-40fa-9e34-3ea3daf7471f}">
+      <Declaration><![CDATA[
+METHOD IsTypeClassCorrect : BOOL
+VAR_INPUT
+	CheckedVariable : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF classSize = 0 THEN
+	IsTypeClassCorrect := TRUE;
+	RETURN;
+END_IF
+IsTypeClassCorrect := typeClass = CheckedVariable.TypeClass AND classSize = CheckedVariable.diSize;
 ]]></ST>
       </Implementation>
     </Method>
@@ -274,5 +332,52 @@ END_WHILE
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetTypeClass" Id="{f5a2b55d-ed3e-4b78-b26b-e15a7ca8b768}">
+      <Declaration><![CDATA[
+METHOD SetTypeClass : BOOL
+VAR_INPUT
+	ReferenceVariable : ANY; // Pass any variable of your chosen type. It will only be used to obtain data type
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF classSize = 0 THEN
+	typeClass := ReferenceVariable.TypeClass;
+	classSize := ReferenceVariable.diSize;
+	SetTypeClass := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="typeClass" Id="{5edcf55a-3211-4d79-ad6d-72dde1f06a69}">
+      <Declaration><![CDATA[
+//{attribute 'monitoring' := 'call'}
+// Type of data object - primitives or Userdef
+PROPERTY typeClass : __SYSTEM.TYPE_CLASS
+]]></Declaration>
+      <Get Name="Get" Id="{338c0731-2dbe-41a5-a853-32e34c8bf6c9}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+typeClass := _typeClass;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{78ff5002-68b7-404a-bc4f-5a51efac81b5}">
+        <Declaration><![CDATA[
+PRIVATE 
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+_typeClass := typeClass;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
   </POU>
 </TcPlcObject>
