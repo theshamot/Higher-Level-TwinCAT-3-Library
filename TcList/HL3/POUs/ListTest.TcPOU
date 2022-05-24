@@ -7,8 +7,9 @@ VAR
 	//testing
 	testList : List;
 	testVar	: REAL;
-	appendTest : BOOL;
-	getTest : BOOL;
+	appendTest : BOOL := TRUE;
+	getTest : BOOL := TRUE;
+	removeTest : BOOL;
 	getVar : ARRAY[0..19] OF REAL;
 	
 END_VAR
@@ -19,18 +20,57 @@ IF appendTest THEN
 	appendTest := FALSE;
 	testVar := 1;
 	testList.Append(testVar);
-	testVar := -16;
+	testVar := 2;
 	testList.Append(testVar);
 	testVar := 3.14;
 	testList.Append(testVar);
+	testVar := -2;
+	testList.Prepend(testVar);
+	testVar := -3;
+	testList.Prepend(testVar);
+	testVar := -1;
+	testList.Insert(2, testVar);
+	testVar := 3;
+	testList.Insert(5, testVar);
 END_IF
 IF getTest THEN
-	getTest := FALSE;
+//	getTest := FALSE;
+	ClearTestReadArray();
 	testList.Get(0, getVar[0]);
 	testList.Get(1, getVar[1]);
 	testList.Get(2, getVar[2]);
+	testList.Get(3, getVar[3]);
+	testList.Get(4, getVar[4]);
+	testList.Get(5, getVar[5]);
+	testList.Get(6, getVar[6]);
+	testList.Get(7, getVar[7]);
+	testList.Get(8, getVar[8]);
+	
+	testList.Get(-1, getVar[10]);
+	testList.Get(-2, getVar[11]);
+	testList.Get(-3, getVar[12]);
+	testList.Get(-4, getVar[13]);
+	testList.Get(-5, getVar[14]);
+	testList.Get(-6, getVar[15]);
+	testList.Get(-7, getVar[16]);
+	testList.Get(-8, getVar[17]);
 END_IF
-]]></ST>
+IF removeTest THEN
+	removeTest := FALSE;
+	testList.Remove(1);
+END_IF]]></ST>
     </Implementation>
+    <Method Name="ClearTestReadArray" Id="{ea898d5c-7128-4f79-a752-aa71d0fedf32}">
+      <Declaration><![CDATA[METHOD ClearTestReadArray : BOOL
+VAR
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO 19 DO
+	getVar[i] := 0;
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

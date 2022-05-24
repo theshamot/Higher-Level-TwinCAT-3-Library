@@ -184,8 +184,14 @@ END_VAR
         <ST><![CDATA[
 Insert REF= THIS^;
 
+IF NOT IsTypeClassCorrect(data) THEN
+	RETURN;
+END_IF
+SetTypeClass(data);
+
 new := __NEW(Node);
-new^.data := data;
+new^.data := __NEW(BYTE, classSize);
+MEMCPY(new^.data, data.pValue, classSize);
 
 // Calculate actual index in List
 insertIndex := ((count + 1) * BOOL_TO_INT(index < 0)) + index;
@@ -254,8 +260,14 @@ END_VAR
         <ST><![CDATA[
 Prepend REF= THIS^;
 
+IF NOT IsTypeClassCorrect(data) THEN
+	RETURN;
+END_IF
+SetTypeClass(data);
+
 new := __NEW(Node);
-new^.data := data;
+new^.data := __NEW(BYTE, classSize);
+MEMCPY(new^.data, data.pValue, classSize);
 new^.next := head;
 
 IF head = NULL THEN
@@ -313,6 +325,7 @@ END_IF
 IF nodeToRemove = tail THEN
 	tail := current;
 END_IF
+__DELETE(nodeToRemove^.data);
 __DELETE(nodeToRemove);
 count := count - 1;
 ]]></ST>

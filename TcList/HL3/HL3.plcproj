@@ -95,26 +95,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SubObject Include="List.FB_init">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-    <SubObject Include="List.Insert">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-    <SubObject Include="List.IsEmpty">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-    <SubObject Include="List.Prepend">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-    <SubObject Include="List.Remove">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-    <SubObject Include="List.RemoveAll">
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </SubObject>
-  </ItemGroup>
-  <ItemGroup>
     <LibraryReference Include="Base Interfaces,newest,System">
       <Namespace>IBaseLibrary</Namespace>
     </LibraryReference>
