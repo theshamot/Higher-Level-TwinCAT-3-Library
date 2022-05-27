@@ -51,6 +51,18 @@
     <Compile Include="Lists\List\Node.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Lists\WrappableList\ExampleWithUserDatatype\WrappableListExample.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lists\WrappableList\ExampleWithUserDatatype\ListOfUserDatatype.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lists\WrappableList\ExampleWithUserDatatype\UserDatatype.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lists\WrappableList\WrappableList.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +79,8 @@
     <Folder Include="DataProcessing" />
     <Folder Include="Lists\List" />
     <Folder Include="Lists\ListOfINT" />
+    <Folder Include="Lists\WrappableList" />
+    <Folder Include="Lists\WrappableList\ExampleWithUserDatatype" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ListOfUserDatatype" Id="{8aeba194-e122-497c-bdbb-6b4adc25f2d1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ListOfUserDatatype EXTENDS WrappableList
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Append" Id="{7fa7eaa6-6436-44e9-9d7b-b083be30978c}">
+      <Declaration><![CDATA[METHOD Append : REFERENCE TO ListOfUserDatatype
+VAR_INPUT
+	data : UserDatatype;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Append REF= THIS^;
+SUPER^._Append(data);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Get" Id="{53990a68-dd1b-4daa-a571-3a5dca3db2e6}">
+      <Declaration><![CDATA[METHOD Get : UserDatatype
+VAR_INPUT
+	index : INT;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Get(index, Get);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

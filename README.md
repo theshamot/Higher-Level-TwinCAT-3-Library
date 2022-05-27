@@ -28,6 +28,7 @@ I would like to thank [Jakob Sagatowsky](https://github.com/sagatowski) and [TcO
   - Only variables can be passed as data. i.e. you cannot do ~~`Append(5)`~~, you can only `Append(myVariable)`
   - When retrieving data from List using `Get(int index, ANY destinationVariable)` function you also pass the variable you want to write data to. The variable is checked on its compatibility and if datatype is valid then data are written into the variable.
   - ❗When adding or retrieving data from List the datatype is checked. If the datatype is not valid it will RETURN without doing anything❗
+  - Also tried to create wrapper for this List. Point of this was ease of use of Get() method and properties of the returned object but the effort seems to be pointless because "It is not possible to perform component access '.', index access '[]' or call '()' on result of function call. Assign result to help variable first."
 ### QuickSort
 - Function to sort ARRAY OF REAL using QuickSort algorithm
 - Also contains function for easy swap of two REAL variable values

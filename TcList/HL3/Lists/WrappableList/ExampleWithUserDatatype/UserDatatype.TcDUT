@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="UserDatatype" Id="{a8f7e945-80f3-454e-a2d8-334faa1034a2}">
+    <Declaration><![CDATA[TYPE UserDatatype :
+STRUCT
+	VarBOOL : BOOL;
+	VarREAL : REAL;
+	VarARRAYINT : ARRAY[0..9] OF INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

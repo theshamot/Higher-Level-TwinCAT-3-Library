@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="List" Id="{36da1aad-070e-4dc9-a97f-6804d8c29941}" SpecialFunc="None">
+  <POU Name="WrappableList" Id="{ca08b2fb-2d23-4b3e-81bb-a2facb2a8425}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK List
+FUNCTION_BLOCK WrappableList
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -20,9 +20,8 @@ END_VAR
 
 ]]></ST>
     </Implementation>
-    <Method Name="Append" Id="{1e1f09ec-b8ab-4564-bd5e-1ec5942968a2}">
-      <Declaration><![CDATA[
-METHOD Append : REFERENCE TO List
+    <Method Name="_Append" Id="{40e96914-b8be-4eb1-83bd-e01089932ae8}">
+      <Declaration><![CDATA[METHOD PROTECTED _Append : REFERENCE TO WrappableList
 VAR_INPUT
 	data : ANY;
 END_VAR
@@ -31,8 +30,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-Append REF= THIS^;
+        <ST><![CDATA[_Append REF= THIS^;
 
 IF NOT IsTypeClassCorrect(data) THEN
 	RETURN;
@@ -55,39 +53,8 @@ count := count + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="classSize" Id="{7e6085c6-96ce-42a1-8b88-7186e2707c52}">
-      <Declaration><![CDATA[
-//{attribute 'monitoring' := 'call'}
-// Size of data object - useful to check type of Userdef typeclass
-PROPERTY classSize : DINT
-]]></Declaration>
-      <Get Name="Get" Id="{751ed563-245e-4251-8f48-793bea02d2dd}">
-        <Declaration><![CDATA[
-VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-classSize := _classSize;
-]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{d28883e4-09ef-4987-9ae9-de437f5febd2}">
-        <Declaration><![CDATA[
-PRIVATE 
-VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-_classSize := classSize;
-]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Method Name="Get" Id="{27f0a3aa-73ee-439b-a440-9d7ae0b874e3}">
-      <Declaration><![CDATA[
-METHOD Get : REFERENCE TO List
+    <Method Name="_Get" Id="{c2722b16-7c99-41ac-a740-753b89560dea}">
+      <Declaration><![CDATA[METHOD PROTECTED _Get : REFERENCE TO WrappableList
 VAR_INPUT
 	// indexing from end allowed
 	// index = 0 returns first element
@@ -135,9 +102,39 @@ MEMMOVE(destinationVariable.pValue, current^.data, classSize);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Insert" Id="{c7ac0742-b796-46ea-b82a-ea65ec86bf7a}">
+    <Property Name="classSize" Id="{472807a7-4887-42a4-9772-3a0fa6f7a368}">
+      <Declaration><![CDATA[
+//{attribute 'monitoring' := 'call'}
+// Size of data object - useful to check type of Userdef typeclass
+PROPERTY classSize : DINT
+]]></Declaration>
+      <Get Name="Get" Id="{11a13790-f3d1-42c8-bed6-f7e32953bc59}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+classSize := _classSize;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{607e393b-3979-4efc-8fe4-6059ba11c1c7}">
+        <Declaration><![CDATA[
+PRIVATE 
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+_classSize := classSize;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Insert" Id="{dc1fed3d-f702-4622-bcf1-8e347a9d306e}">
       <Declaration><![CDATA[// Inserts new element into given index. Negative indexing is supported
-METHOD Insert : REFERENCE TO List
+METHOD Insert : REFERENCE TO WrappableList
 VAR_INPUT
 	(*
 		0 = Prepend;
@@ -173,7 +170,7 @@ insertIndex := ((count + 1) * BOOL_TO_INT(index < 0)) + index;
 
 IF insertIndex >= count // Index too high -> append to end
 THEN
-	Append(data);
+	_Append(data);
 	RETURN;
 ELSIF insertIndex <= 0 // Index too high from the end -> prepend to beginning
 THEN
@@ -191,7 +188,7 @@ count := count + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsEmpty" Id="{48c36a62-7159-4bac-9043-c9f34faa0784}">
+    <Method Name="IsEmpty" Id="{effa7d14-2ac9-4336-9502-f0e2f8f66119}">
       <Declaration><![CDATA[
 METHOD IsEmpty : BOOL
 VAR_INPUT
@@ -203,7 +200,7 @@ IsEmpty := head = NULL;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsTypeClassCorrect" Id="{a44011b5-3af2-40fa-9e34-3ea3daf7471f}">
+    <Method Name="IsTypeClassCorrect" Id="{57ad85de-1bf2-4568-88e8-b597de22c725}">
       <Declaration><![CDATA[
 METHOD IsTypeClassCorrect : BOOL
 VAR_INPUT
@@ -220,10 +217,10 @@ IsTypeClassCorrect := typeClass = CheckedVariable.TypeClass AND classSize = Chec
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Prepend" Id="{4d27f5a1-2c00-46ed-9bca-6cb1700691e9}">
+    <Method Name="Prepend" Id="{a005bd10-c0a4-428e-b47d-b3a0bae09a55}">
       <Declaration><![CDATA[
 // Pushes data to the beginning of the list
-METHOD Prepend : REFERENCE TO List
+METHOD Prepend : REFERENCE TO WrappableList
 VAR_INPUT
 	data : ANY;
 END_VAR
@@ -255,9 +252,9 @@ count := count + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Remove" Id="{a48b451e-3e6f-4bbb-a1ce-018cff54d99b}">
+    <Method Name="Remove" Id="{86e69ae2-79e1-49a0-be8b-fbc89ffa93eb}">
       <Declaration><![CDATA[
-METHOD Remove : REFERENCE TO List;
+METHOD Remove : REFERENCE TO WrappableList;
 VAR_INPUT
 	index : INT;
 END_VAR
@@ -306,9 +303,9 @@ count := count - 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveAll" Id="{76f34ed4-1c4a-47a9-9afe-52cf0b0c1d2d}">
+    <Method Name="RemoveAll" Id="{7b77c637-bdf7-4ab8-b391-bbc2186a0a44}">
       <Declaration><![CDATA[
-METHOD RemoveAll : REFERENCE TO List
+METHOD RemoveAll : REFERENCE TO WrappableList
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -320,7 +317,7 @@ END_WHILE
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetTypeClass" Id="{f5a2b55d-ed3e-4b78-b26b-e15a7ca8b768}">
+    <Method Name="SetTypeClass" Id="{1bd4d152-eddc-424a-a539-895a22ed9f1e}">
       <Declaration><![CDATA[
 METHOD SetTypeClass : BOOL
 VAR_INPUT
@@ -337,13 +334,13 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="typeClass" Id="{5edcf55a-3211-4d79-ad6d-72dde1f06a69}">
+    <Property Name="typeClass" Id="{47310767-7ddb-473e-ae58-91644eca8bba}">
       <Declaration><![CDATA[
 //{attribute 'monitoring' := 'call'}
 // Type of data object - primitives or Userdef
 PROPERTY typeClass : __SYSTEM.TYPE_CLASS
 ]]></Declaration>
-      <Get Name="Get" Id="{338c0731-2dbe-41a5-a853-32e34c8bf6c9}">
+      <Get Name="Get" Id="{6e72db4f-0187-4d25-9772-2f57b7c9c04e}">
         <Declaration><![CDATA[
 VAR
 END_VAR
@@ -354,7 +351,7 @@ typeClass := _typeClass;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{78ff5002-68b7-404a-bc4f-5a51efac81b5}">
+      <Set Name="Set" Id="{276b8d61-c05d-441f-baa7-50c671d7c0fa}">
         <Declaration><![CDATA[
 PRIVATE 
 VAR

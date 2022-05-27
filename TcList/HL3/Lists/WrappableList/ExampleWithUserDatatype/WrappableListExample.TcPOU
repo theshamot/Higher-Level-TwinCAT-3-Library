@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="WrappableListExample" Id="{f50c8673-d5dc-4f4a-be7b-9359ce3a4d9d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM WrappableListExample
+VAR
+	myList	: ListOfUserDatatype;
+	
+	data1 : UserDatatype;
+	data2 : UserDatatype;
+	
+	dataRead : UserDatatype;
+	append : BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF append THEN
+	data1.VarBOOL := TRUE;
+	data1.VarREAL := 3.14;
+	data1.VarARRAYINT[0] := 1;
+	data1.VarARRAYINT[1] := 2;
+	data1.VarARRAYINT[2] := 4;
+	data1.VarARRAYINT[3] := -8;
+	data1.VarARRAYINT[4] := -16;
+	
+	data2.VarBOOL := FALSE;
+	data2.VarREAL := 1.618;
+	data2.VarARRAYINT[0] := -555;
+	data2.VarARRAYINT[1] := 123;
+	data2.VarARRAYINT[2] := -10;
+	data2.VarARRAYINT[3] := -0;
+	data2.VarARRAYINT[4] := -18;
+
+	append := FALSE;
+	myList.Append(data1).Append(data2);
+END_IF
+
+myList.Get(0);
+
+//myList.Get(0).VarBOOL;
+//myList.Get(0).VarREAL;
+// :-(
+//"It is not possible to perform component access '.', index access '[]' or call '()' on result of function call. Assign result to help variable first."
+
+dataRead := myList.Get(1);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

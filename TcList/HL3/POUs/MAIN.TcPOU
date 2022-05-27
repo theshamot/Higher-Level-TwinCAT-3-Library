@@ -9,8 +9,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-ListTest();
 ListOfINTTest();
+ListTest();
+WrappableListExample();
 
 QuickSortTest();
 ]]></ST>
