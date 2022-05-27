@@ -27,38 +27,34 @@
     <Compile Include="DataProcessing\QuickSort\QuickSort.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataProcessing\QuickSort\QuickSortTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataProcessing\QuickSort\Swap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GVL.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="List\ListOfINT.TcPOU">
+    <Compile Include="Lists\ListOfINT\ListOfINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="List\List.TcPOU">
+    <Compile Include="Lists\ListOfINT\ListOfINTTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="List\NodeINT.TcDUT">
+    <Compile Include="Lists\ListOfINT\NodeINT.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="List\Node.TcDUT">
+    <Compile Include="Lists\List\List.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lists\List\ListTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Lists\List\Node.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ListOfINTTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\ListTest.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\QuickSortTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Stringify\Stringify.TcPOU">
@@ -67,10 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataProcessing\QuickSort" />
-    <Folder Include="DUTs" />
-    <Folder Include="GVLs" />
-    <Folder Include="List" />
+    <Folder Include="Lists" />
     <Folder Include="DataProcessing" />
+    <Folder Include="Lists\List" />
+    <Folder Include="Lists\ListOfINT" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
