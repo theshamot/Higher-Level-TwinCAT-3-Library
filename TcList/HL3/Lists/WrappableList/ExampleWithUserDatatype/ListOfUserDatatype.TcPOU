@@ -24,15 +24,20 @@ SUPER^._Append(data);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Get" Id="{53990a68-dd1b-4daa-a571-3a5dca3db2e6}">
-      <Declaration><![CDATA[METHOD Get : UserDatatype
+      <Declaration><![CDATA[
+METHOD Get : REFERENCE TO UserDatatype
 VAR_INPUT
 	index : INT;
 END_VAR
 VAR
+	value : UserDatatype;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Get(index, Get);]]></ST>
+        <ST><![CDATA[
+_Get(index, value);
+Get REF= value;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

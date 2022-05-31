@@ -9,7 +9,10 @@ VAR
 	data2 : UserDatatype;
 	
 	dataRead : UserDatatype;
-	append : BOOL;
+	boolRead : BOOL;
+	boolTest : BOOL;
+	append : BOOL := TRUE;
+	
 	
 END_VAR
 ]]></Declaration>
@@ -37,10 +40,8 @@ END_IF
 
 myList.Get(0);
 
-//myList.Get(0).VarBOOL;
-//myList.Get(0).VarREAL;
-// :-(
-//"It is not possible to perform component access '.', index access '[]' or call '()' on result of function call. Assign result to help variable first."
+boolRead := myList.Get(0).VarBOOL;
+myList.Get(0).VarREAL;
 
 dataRead := myList.Get(1);
 ]]></ST>

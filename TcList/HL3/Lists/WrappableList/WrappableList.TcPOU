@@ -54,7 +54,8 @@ count := count + 1;
       </Implementation>
     </Method>
     <Method Name="_Get" Id="{c2722b16-7c99-41ac-a740-753b89560dea}">
-      <Declaration><![CDATA[METHOD PROTECTED _Get : REFERENCE TO WrappableList
+      <Declaration><![CDATA[
+METHOD PROTECTED _Get : REFERENCE TO WrappableList
 VAR_INPUT
 	// indexing from end allowed
 	// index = 0 returns first element
