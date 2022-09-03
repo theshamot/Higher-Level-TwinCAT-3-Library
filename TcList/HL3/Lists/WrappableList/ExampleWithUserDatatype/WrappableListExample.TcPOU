@@ -11,8 +11,10 @@ VAR
 	dataRead : UserDatatype;
 	boolRead : BOOL;
 	boolTest : BOOL;
+	realRead : REAL;
 	append : BOOL := TRUE;
 	
+	test : BOOL;
 	
 END_VAR
 ]]></Declaration>
@@ -40,8 +42,13 @@ END_IF
 
 myList.Get(0);
 
+IF test THEN
+	test := FALSE;
+	myList.Get(0).VarREAL := 12.345;
+END_IF
+
 boolRead := myList.Get(0).VarBOOL;
-myList.Get(0).VarREAL;
+realRead := myList.Get(0).VarREAL;
 
 dataRead := myList.Get(1);
 ]]></ST>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="PointerToByteQueryable" Id="{e596ab4a-a74c-497f-b302-98bf669a881c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PointerToByteQueryable IMPLEMENTS __SYSTEM.IQueryInterface
+VAR_IN_OUT
+	pt : POINTER TO BYTE;
+END_VAR
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

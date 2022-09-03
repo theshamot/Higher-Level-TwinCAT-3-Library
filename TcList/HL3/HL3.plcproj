@@ -60,6 +60,9 @@
     <Compile Include="Lists\WrappableList\ExampleWithUserDatatype\UserDatatype.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Lists\WrappableList\PointerToByteQueryable.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Lists\WrappableList\WrappableList.TcPOU">
       <SubType>Code</SubType>
     </Compile>

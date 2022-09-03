@@ -40,5 +40,17 @@ Get REF= value;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Ref" Id="{84625e72-f7b0-4471-9dad-ee851b91e222}">
+      <Declaration><![CDATA[METHOD Ref : POINTER TO UserDatatype
+VAR_INPUT
+	index : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+__QUERYPOINTER(_GetPointer(index), Ref);
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

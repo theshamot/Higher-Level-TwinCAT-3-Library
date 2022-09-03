@@ -103,6 +103,46 @@ MEMMOVE(destinationVariable.pValue, current^.data, classSize);
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="_GetPointer" Id="{bbe04a9a-a9e8-4663-8df7-f603916e74f3}">
+      <Declaration><![CDATA[
+METHOD _GetPointer : PointerToByteQueryable
+VAR_INPUT
+	index : INT;
+END_VAR
+VAR
+	current : POINTER TO Node := NULL;
+	getIndex : INT;
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF head = NULL THEN
+	RETURN;
+END_IF;
+
+// Calculate actual index in List
+getIndex := (count * BOOL_TO_INT(index < 0)) + index;
+
+// Return 0 for invalid indexes
+IF 	(getIndex >= count) OR	// Indexing from begin begins with 0
+	(getIndex < 0) // Indexing from end begins with -1
+THEN
+	RETURN;
+END_IF
+
+
+current := head;
+FOR i := 1 TO getIndex DO // we already got head in previous line, that's why it's from 1
+	IF current^.next = NULL THEN
+		RETURN;
+	END_IF
+	current := current^.next;
+END_FOR
+_GetPointer.pt := current^.data;
+https://infosys.beckhoff.com/english.php?content=../content/1033/tc3_plc_intro/2529453451.html&id=]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="classSize" Id="{472807a7-4887-42a4-9772-3a0fa6f7a368}">
       <Declaration><![CDATA[
 //{attribute 'monitoring' := 'call'}
