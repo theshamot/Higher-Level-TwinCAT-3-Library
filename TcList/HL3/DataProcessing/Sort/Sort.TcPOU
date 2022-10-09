@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Sort" Id="{49c0530b-61f3-4adb-970f-678f90fd200d}" SpecialFunc="None">
+    <Declaration><![CDATA[// sort any array of anything
+FUNCTION Sort : E_Status
+VAR_INPUT
+	arr : ANY; // data to be sorted, get size of array
+	firstElement : ANY; // get size of element to be able to get count of elements and iterate over them
+	sortBy : ANY; // possibility to pass array of structures and sort by some of its member - this will get its type and offset in element. Will have its own function SortBy() later
+	order : E_Order;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[elemCount := arr.diSize / firstElement.diSize;
+memberOffset := sortBy.pValue - firstElement.pValue;
+
+
+
+CASE sortBy.TypeClass OF
+	LINT:
+	
+	ULINT:
+	
+	LREAL:
+	
+	TIME, TOD...:
+	
+	STRING:
+	
+	WSTRING:
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

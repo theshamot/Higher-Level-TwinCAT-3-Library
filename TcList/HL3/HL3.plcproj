@@ -33,6 +33,18 @@
     <Compile Include="DataProcessing\QuickSort\Swap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataProcessing\Sort\E_Order.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Sort\Sort.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\E_Status.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\VI.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Lists\ListOfINT\ListOfINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataProcessing\Sort" />
     <Folder Include="DataProcessing\QuickSort" />
     <Folder Include="Lists" />
     <Folder Include="DataProcessing" />
@@ -81,6 +94,7 @@
     <Folder Include="Lists\ListOfINT" />
     <Folder Include="Lists\WrappableList" />
     <Folder Include="Lists\WrappableList\ExampleWithUserDatatype" />
+    <Folder Include="General" />
     <Folder Include="Stringify" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />

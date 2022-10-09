@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="VI" Id="{1d3aada1-a413-4388-b500-6efaa448d394}">
+    <Declaration><![CDATA[TYPE VI : __System.VAR_INFO; END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
