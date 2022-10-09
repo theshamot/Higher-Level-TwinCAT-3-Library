@@ -272,3 +272,5 @@ __pycache__/
 _Boot/
 _CompileInfo/
 .vs/
+*.dbg
+*.bak
