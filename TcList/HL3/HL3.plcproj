@@ -30,10 +30,16 @@
     <Compile Include="DataProcessing\QuickSort\QuickSortTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataProcessing\QuickSort\Swap.TcPOU">
+    <Compile Include="DataProcessing\Sort\E_Order.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataProcessing\Sort\E_Order.TcTLEO">
+    <Compile Include="DataProcessing\Sort\SortTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Sort\_Partition.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Sort\_QuickSort.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataProcessing\Sort\Sort.TcPOU">
@@ -42,7 +48,10 @@
     <Compile Include="General\E_Status.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="General\VI.TcDUT">
+    <Compile Include="General\Swap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\SwapByAddr.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Lists\ListOfINT\ListOfINT.TcPOU">
@@ -107,6 +116,10 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>

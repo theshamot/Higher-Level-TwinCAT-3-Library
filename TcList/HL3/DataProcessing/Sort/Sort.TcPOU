@@ -4,33 +4,49 @@
     <Declaration><![CDATA[// sort any array of anything
 FUNCTION Sort : E_Status
 VAR_INPUT
-	arr : ANY; // data to be sorted, get size of array
-	firstElement : ANY; // get size of element to be able to get count of elements and iterate over them
-	sortBy : ANY; // possibility to pass array of structures and sort by some of its member - this will get its type and offset in element. Will have its own function SortBy() later
-	order : E_Order;
+	Arr 			: ANY; // data to be sorted, get size of array
+	FirstElement 	: ANY; // get size of element to be able to get count of elements and iterate over them
+	SortBy 			: ANY; // possibility to pass array of structures and sort by some of its member - this will get its type and offset in element. Will have its own function SortBy() later
+	Order 			: E_Order;
 END_VAR
 VAR
+	ElemSize		: DINT;
+	ElemCount 		: DINT;
+	MemberOffset 	: DWORD;
+	
+	StartIndex 		: DINT := 0;
+	EndIndex 		: DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[elemCount := arr.diSize / firstElement.diSize;
+      <ST><![CDATA[IF 	arr.pValue = 0 OR firstElement.pValue = 0 OR sortBy.pValue = 0 OR 
+	arr.diSize = 0 OR firstElement.diSize = 0 OR sortBy.pValue = 0 THEN
+
+	Sort := E_Status.INPUT_ERROR;
+	RETURN;
+END_IF
+
+elemCount := arr.diSize / firstElement.diSize;
 memberOffset := sortBy.pValue - firstElement.pValue;
+EndIndex := ElemCount - 1;
 
+_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex);
 
-
-CASE sortBy.TypeClass OF
-	LINT:
+//CASE sortBy.TypeClass OF
+//	__SYSTEM.TYPE_CLASS.TYPE_INT:
+//		NULL;
+//	__SYSTEM.TYPE_CLASS.TYPE_REAL:
+//		NULL;
+////	ULINT:
 	
-	ULINT:
+////	LREAL:
 	
-	LREAL:
+////	TIME, TOD...:
 	
-	TIME, TOD...:
+////	STRING:
 	
-	STRING:
-	
-	WSTRING:
-END_CASE]]></ST>
+////	WSTRING:
+//END_CASE]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

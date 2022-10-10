@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="SortTest" Id="{d95a2e8d-bb47-456d-9afc-02b8a43bc324}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SortTest
+VAR
+	TestArray0 : ARRAY[0..20] OF REAL := [
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+		42, 3.14, 0.618, 1.618, 2.618
+	];
+	TestArray1 : ARRAY[0..1] OF REAL := [0.1, -0.2];
+	
+	init : BOOL;
+	startSort : BOOL;
+	
+	res : E_Status;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF init THEN
+	init := FALSE;
+	reinit();
+END_IF
+
+IF startSort THEN
+	startSort := FALSE;
+	res := Sort(TestArray0, TestArray0[0], TestArray0[0], E_Order.ASCENDING);
+END_IF
+]]></ST>
+    </Implementation>
+    <Method Name="reinit" Id="{d7862d1f-daa0-432e-8027-3852550d7ae0}">
+      <Declaration><![CDATA[
+METHOD reinit : BOOL
+VAR_INPUT
+END_VAR
+VAR CONSTANT
+	Array0 : ARRAY[0..20] OF REAL := [
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+		42, 3.14, 0.618, 1.618, 2.618
+	];
+	Array1 : ARRAY[0..1] OF REAL := [0.1, -0.2];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TestArray0 := Array0;
+TestArray1 := Array1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

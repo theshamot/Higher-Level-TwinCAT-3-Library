@@ -6,8 +6,6 @@ PROGRAM MAIN
 VAR
 	a : ARRAY[0..5] OF REAL;
 	b : ARRAY[10..15] OF REAL;
-	
-//	inf : __SYSTEM.VAR_INFO;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,9 +15,9 @@ ListTest();
 WrappableListExample();
 
 QuickSortTest();
+SortTest();
 
-//Sort( arr :=__VARINFO(a), targetArr :=__VARINFO(b), order := E_Order.ASCENDING);
-Sort( arr := a, sortBy := a[0], , order := E_Order.ASCENDING);]]></ST>
+//Sort(arr := a, firstElement := a[0], sortBy := a[0], order := E_Order.ASCENDING);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
