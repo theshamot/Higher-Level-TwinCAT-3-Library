@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="Sort" Id="{49c0530b-61f3-4adb-970f-678f90fd200d}" SpecialFunc="None">
     <Declaration><![CDATA[// sort any array of anything
-FUNCTION Sort : E_Status
+FUNCTION Sort : E_GeneralStatus
 VAR_INPUT
 	Arr 			: ANY; // data to be sorted, get size of array
 	FirstElement 	: ANY; // get size of element to be able to get count of elements and iterate over them
@@ -22,7 +22,7 @@ END_VAR
       <ST><![CDATA[IF 	arr.pValue = 0 OR firstElement.pValue = 0 OR sortBy.pValue = 0 OR 
 	arr.diSize = 0 OR firstElement.diSize = 0 OR sortBy.pValue = 0 THEN
 
-	Sort := E_Status.INPUT_ERROR;
+	Sort := E_GeneralStatus.INPUT_ERROR;
 	RETURN;
 END_IF
 
@@ -30,23 +30,7 @@ elemCount := arr.diSize / firstElement.diSize;
 memberOffset := sortBy.pValue - firstElement.pValue;
 EndIndex := ElemCount - 1;
 
-_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex);
-
-//CASE sortBy.TypeClass OF
-//	__SYSTEM.TYPE_CLASS.TYPE_INT:
-//		NULL;
-//	__SYSTEM.TYPE_CLASS.TYPE_REAL:
-//		NULL;
-////	ULINT:
-	
-////	LREAL:
-	
-////	TIME, TOD...:
-	
-////	STRING:
-	
-////	WSTRING:
-//END_CASE]]></ST>
+_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex, Order);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

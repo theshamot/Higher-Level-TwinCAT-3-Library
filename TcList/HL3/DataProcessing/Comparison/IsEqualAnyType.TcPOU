@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="IsEqualAnyType" Id="{0c403136-e827-45c6-a5a8-7d1320cc8888}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsEqualAnyType : E_GeneralResult
+VAR_INPUT
+	A					: __SYSTEM.AnyType; // A and B have to be same type
+	B					: __SYSTEM.AnyType; // A and B have to be same type
+END_VAR
+VAR
+	isEqual				: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF A.TypeClass <> B.TypeClass THEN
+	RETURN;
+END_IF
+
+isEqual := MEMCMP(A.pValue, B.pValue, A.diSize) = 0;
+
+IF isEqual THEN
+	IsEqualAnyType := E_GeneralResult._TRUE;
+ELSE
+	IsEqualAnyType := E_GeneralResult._FALSE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

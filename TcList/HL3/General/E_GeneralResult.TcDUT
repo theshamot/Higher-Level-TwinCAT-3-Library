@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="E_GeneralResult" Id="{af70d437-6ea5-4a32-8ba3-75a4dadbd695}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_GeneralResult :
+(
+	NONE := 0,
+	OK,
+	NOK,
+	_TRUE, // TRUE is keyword
+	_FALSE // FALSE is keyword
+	
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

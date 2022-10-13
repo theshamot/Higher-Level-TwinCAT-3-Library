@@ -12,7 +12,8 @@ VAR
 	init : BOOL;
 	startSort : BOOL;
 	
-	res : E_Status;
+	order	: E_Order;
+	res : E_GeneralStatus;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -23,8 +24,8 @@ END_IF
 
 IF startSort THEN
 	startSort := FALSE;
-	Sort(TestArray0, TestArray0[0], TestArray0[0], E_Order.ASCENDING);
-	Sort(TestArray1, TestArray1[0], TestArray1[0], E_Order.ASCENDING);
+	Sort(TestArray0, TestArray0[0], TestArray0[0], order);
+	Sort(TestArray1, TestArray1[0], TestArray1[0], order);
 END_IF
 ]]></ST>
     </Implementation>

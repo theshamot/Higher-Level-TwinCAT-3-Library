@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="IsLessThanAnyType" Id="{2c58d0b3-407e-4777-bf12-73b5182c0459}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsLessThanAnyType : E_GeneralResult
+VAR_INPUT
+	A					: __SYSTEM.AnyType; // A and B have to be same type
+	B					: __SYSTEM.AnyType; // A and B have to be same type
+END_VAR
+VAR
+	isLessThan			: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF A.TypeClass <> B.TypeClass THEN
+	RETURN;
+END_IF
+
+CASE UDINT_TO_INT(A.TypeClass) OF
+    IBaseLibrary.TypeClass.TYPE_BOOL :
+        isLessThan := PBOOL_TO_BOOL(a.pValue) < PBOOL_TO_BOOL(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_BIT :
+        isLessThan := BYTE_TO_BIT(a.pValue^) < BYTE_TO_BIT(b.pValue^);
+    IBaseLibrary.TypeClass.TYPE_BYTE :
+        isLessThan := a.pValue^ < b.pValue^;
+    IBaseLibrary.TypeClass.TYPE_WORD :
+        isLessThan := PWORD_TO_WORD(a.pValue) < PWORD_TO_WORD(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_DWORD :
+        isLessThan := PDWORD_TO_DWORD(a.pValue) < PDWORD_TO_DWORD(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_LWORD :
+        isLessThan := PLWORD_TO_LWORD(a.pValue) < PLWORD_TO_LWORD(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_SINT :
+        isLessThan := PSINT_TO_SINT(a.pValue) < PSINT_TO_SINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_INT :
+        isLessThan := PINT_TO_INT(a.pValue) < PINT_TO_INT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_DINT :
+        isLessThan := PDINT_TO_DINT(a.pValue) < PDINT_TO_DINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_LINT :
+        isLessThan := PLINT_TO_LINT(a.pValue) < PLINT_TO_LINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_USINT :
+        isLessThan := PUSINT_TO_USINT(a.pValue) < PUSINT_TO_USINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_UINT :
+        isLessThan := PUINT_TO_UINT(a.pValue) < PUINT_TO_UINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_UDINT :
+        isLessThan := PUDINT_TO_UDINT(a.pValue) < PUDINT_TO_UDINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_ULINT :
+        isLessThan := PULINT_TO_ULINT(a.pValue) < PULINT_TO_ULINT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_REAL :
+        isLessThan := PREAL_TO_REAL(a.pValue) < PREAL_TO_REAL(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_LREAL :
+        isLessThan := PLREAL_TO_LREAL(a.pValue) < PLREAL_TO_LREAL(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_STRING :
+        isLessThan := PSTRING_TO_STRING(a.pValue) < PSTRING_TO_STRING(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_TIME :
+        isLessThan := PTIME_TO_TIME(a.pValue) < PTIME_TO_TIME(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_DATE :
+        isLessThan := PDATE_TO_DATE(a.pValue) < PDATE_TO_DATE(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_DATEANDTIME :
+        isLessThan := PDT_TO_DT(a.pValue) < PDT_TO_DT(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_TIMEOFDAY :
+        isLessThan := PTOD_TO_TOD(a.pValue) < PTOD_TO_TOD(b.pValue);
+    IBaseLibrary.TypeClass.TYPE_POINTER :
+        isLessThan := a.pValue < b.pValue;
+    IBaseLibrary.TypeClass.TYPE_LTIME :
+        isLessThan := PLTIME_TO_LTIME(a.pValue) < PLTIME_TO_LTIME(b.pValue);
+	ELSE
+		RETURN;
+END_CASE
+
+IF isLessThan THEN
+	IsLessThanAnyType := E_GeneralResult._TRUE;
+ELSE
+	IsLessThanAnyType := E_GeneralResult._FALSE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

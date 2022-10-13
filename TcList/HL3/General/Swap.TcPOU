@@ -3,7 +3,7 @@
   <POU Name="Swap" Id="{f2039616-09f6-4daf-a7c3-d64000caac91}" SpecialFunc="None">
     <Declaration><![CDATA[
 // Swaps values of to variables
-FUNCTION Swap : E_Status
+FUNCTION Swap : E_GeneralStatus
 VAR_INPUT
 	A : ANY;
 	B : ANY;
@@ -15,7 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[IF a.pValue = 0 OR b.pValue = 0 OR a.diSize <> b.diSize THEN
 	
-	Swap := E_Status.INPUT_ERROR;
+	Swap := E_GeneralStatus.INPUT_ERROR;
 	RETURN;
 END_IF
 
@@ -27,7 +27,7 @@ MEMCPY(B.pValue, Temp, A.diSize);
 
 __DELETE(Temp);
 
-Swap := E_Status.DONE;]]></ST>
+Swap := E_GeneralStatus.DONE;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

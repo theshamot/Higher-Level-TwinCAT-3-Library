@@ -10,6 +10,7 @@ VAR_INPUT
 	MemberOffset		: DWORD;
 	StartIndex			: DINT; // Start index
 	EndIndex			: DINT; // End index
+	Order 				: E_Order;
 END_VAR
 VAR 
 	PivotIndex			: DINT; // Partitioning point
@@ -18,9 +19,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 IF StartIndex < EndIndex THEN
-	PivotIndex := _Partition(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex);
-	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, PivotIndex - 1);
-	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, PivotIndex + 1, EndIndex);
+	PivotIndex := _Partition(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex, Order);
+	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, PivotIndex - 1, Order);
+	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, PivotIndex + 1, EndIndex, Order);
 END_IF
 ]]></ST>
     </Implementation>

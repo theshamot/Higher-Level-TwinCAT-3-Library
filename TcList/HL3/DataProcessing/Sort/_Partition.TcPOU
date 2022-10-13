@@ -10,12 +10,15 @@ VAR_INPUT
 	MemberOffset		: DWORD;
 	StartIndex			: DINT; // Starting comparision index
 	EndIndex			: DINT; // Ending comparision index
+	Order 				: E_Order;
 END_VAR
 VAR
 	Pivot				: POINTER TO BYTE; // Compared number
 	Leftwall			: DINT; // New pivot location
 	Iterator			: DINT; // For iterator variable
 	IterAdr				: POINTER TO BYTE;
+//	compA				: __SYSTEM.AnyType := SortBy;
+//	compB				: __SYSTEM.AnyType := SortBy;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -26,6 +29,23 @@ Leftwall := StartIndex;
 FOR Iterator := StartIndex TO EndIndex - 1 DO
 
 	IterAdr := Arr.pValue + FirstElement.diSize * Iterator;
+	
+//	compA.pValue := IterAdr + MemberOffset;
+//	compB.pValue := Pivot + MemberOffset;
+	
+//	CASE Order OF
+//		E_Order.ASCENDING:
+//			IF IsLessThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
+//				SwapByAddr(IterAdr, Pivot, FirstElement.diSize);
+//				Leftwall := Leftwall + 1;
+//			END_IF
+//		E_Order.DESCENDING:
+//			IF IsGreaterThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
+//				SwapByAddr(IterAdr, Pivot, FirstElement.diSize);
+//				Leftwall := Leftwall + 1;
+//			END_IF
+//	END_CASE
+	
 	CASE SortBy.TypeClass OF
 
 		__SYSTEM.TYPE_CLASS.TYPE_INT:

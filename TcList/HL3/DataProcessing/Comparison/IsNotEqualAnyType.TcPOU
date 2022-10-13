@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="IsNotEqualAnyType" Id="{b36e7b6e-3545-4c67-908c-4c8617500775}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsNotEqualAnyType : E_GeneralResult
+VAR_INPUT
+	A					: __SYSTEM.AnyType; // A and B have to be same type
+	B					: __SYSTEM.AnyType; // A and B have to be same type
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IsNotEqualAnyType := NegateGeneralResult(IsEqualAnyType(A, B));]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

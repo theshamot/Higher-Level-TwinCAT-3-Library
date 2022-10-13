@@ -21,6 +21,30 @@
     <Company>Tomas Rompotl</Company>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataProcessing\Comparison\CompareAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsGreaterThanOrEqualAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsNotEqualAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsLessThanOrEqualAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsLessThanAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsEqualAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\E_Compare.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Comparison\IsGreaterThanAnyType.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataProcessing\QuickSort\Partition.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -45,7 +69,13 @@
     <Compile Include="DataProcessing\Sort\Sort.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="General\E_Status.TcTLEO">
+    <Compile Include="General\E_GeneralResult.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\E_GeneralStatus.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\NegateGeneralResult.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="General\Swap.TcPOU">
@@ -90,11 +120,18 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Stringify\AnyTypeToWSTRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Stringify\AnyTypeToSTRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Stringify\Stringify.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataProcessing\Comparison" />
     <Folder Include="DataProcessing\Sort" />
     <Folder Include="DataProcessing\QuickSort" />
     <Folder Include="Lists" />

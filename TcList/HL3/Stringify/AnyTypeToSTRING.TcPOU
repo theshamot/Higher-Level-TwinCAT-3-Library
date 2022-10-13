@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="AnyTypeToSTRING" Id="{9a22c86a-6ea3-4f7a-bbd8-4bbd13dcdc2f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION AnyTypeToSTRING : T_MaxString
+VAR_INPUT
+	a	: __System.AnyType;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE UDINT_TO_INT(a.TypeClass) OF
+    IBaseLibrary.TypeClass.TYPE_BOOL :
+        AnyTypeToSTRING := BOOL_TO_STRING(PBOOL_TO_BOOL(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_BIT :
+        AnyTypeToSTRING := BIT_TO_STRING(BYTE_TO_BIT(a.pValue^));
+    IBaseLibrary.TypeClass.TYPE_BYTE :
+        AnyTypeToSTRING := BYTE_TO_STRING(a.pValue^);
+    IBaseLibrary.TypeClass.TYPE_WORD :
+        AnyTypeToSTRING := WORD_TO_STRING(PWORD_TO_WORD(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_DWORD :
+        AnyTypeToSTRING := DWORD_TO_STRING(PDWORD_TO_DWORD(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_LWORD :
+        AnyTypeToSTRING := LWORD_TO_STRING(PLWORD_TO_LWORD(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_SINT :
+        AnyTypeToSTRING := SINT_TO_STRING(PSINT_TO_SINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_INT :
+        AnyTypeToSTRING := INT_TO_STRING(PINT_TO_INT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_DINT :
+        AnyTypeToSTRING := DINT_TO_STRING(PDINT_TO_DINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_LINT :
+        AnyTypeToSTRING := LINT_TO_STRING(PLINT_TO_LINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_USINT :
+        AnyTypeToSTRING := USINT_TO_STRING(PUSINT_TO_USINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_UINT :
+        AnyTypeToSTRING := UINT_TO_STRING(PUINT_TO_UINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_UDINT :
+        AnyTypeToSTRING := UDINT_TO_STRING(PUDINT_TO_UDINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_ULINT :
+        AnyTypeToSTRING := ULINT_TO_STRING(PULINT_TO_ULINT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_REAL :
+        AnyTypeToSTRING := REAL_TO_STRING(PREAL_TO_REAL(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_LREAL :
+        AnyTypeToSTRING := LREAL_TO_STRING(PLREAL_TO_LREAL(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_STRING :
+        AnyTypeToSTRING := PSTRING_TO_STRING(a.pValue);
+    IBaseLibrary.TypeClass.TYPE_STRING :
+        AnyTypeToSTRING := TIME_TO_STRING(PTIME_TO_TIME(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_DATE :
+        AnyTypeToSTRING := DATE_TO_STRING(PDATE_TO_DATE(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_DATEANDTIME :
+        AnyTypeToSTRING := DT_TO_STRING(PDT_TO_DT(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_TIMEOFDAY :
+        AnyTypeToSTRING := TOD_TO_STRING(PTOD_TO_TOD(a.pValue));
+    IBaseLibrary.TypeClass.TYPE_POINTER :
+        AnyTypeToSTRING := PVOID_TO_HEXSTR(a.pValue, SIZEOF(PVOID), FALSE);
+    IBaseLibrary.TypeClass.TYPE_LTIME :
+        AnyTypeToSTRING := LTIME_TO_STRING(PLTIME_TO_LTIME(a.pValue));
+    ELSE
+        AnyTypeToSTRING := 'ERROR: UNSUPPORTED DATA TYPE';
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
