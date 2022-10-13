@@ -10,7 +10,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{48F5B18F-0365-463C-8D95-FDF5766115A9}" Name="HL3" PrjFilePath="HL3\HL3.plcproj" TmcFilePath="HL3\HL3.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="HL3\HL3.tmc" TmcHash="{683C260E-C88E-FB6A-41A6-D301138AFB7C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="HL3\HL3.tmc" TmcHash="{DD74B837-343C-9CEF-37C2-A778E0D0A09F}">
 					<Name>HL3 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
