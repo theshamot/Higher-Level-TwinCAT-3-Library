@@ -63,6 +63,12 @@
     <Compile Include="DataProcessing\Sort\SortTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataProcessing\Sort\ST_TestStruct.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataProcessing\Sort\ST_TestStruct2.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataProcessing\Sort\_Partition.TcPOU">
       <SubType>Code</SubType>
     </Compile>

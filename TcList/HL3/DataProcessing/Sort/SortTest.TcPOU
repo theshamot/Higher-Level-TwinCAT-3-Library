@@ -10,7 +10,9 @@ VAR
 	];
 	TestArray1 : ARRAY[0..3] OF STRING := ['aaa', 'g', 'aab', 'a'];
 	
-	init : BOOL;
+	sort_array : ARRAY[0..3] OF ST_TestStruct;	// TestArray2
+	
+	init : BOOL := TRUE;
 	startSort : BOOL;
 	
 	order	: E_Order;
@@ -19,14 +21,20 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 IF init THEN
+
 	init := FALSE;
+
 	reinit();
 END_IF
 
 IF startSort THEN
+
 	startSort := FALSE;
+
 	Sort(TestArray0, TestArray0[0], TestArray0[0], order);
 	Sort(TestArray1, TestArray1[0], TestArray1[0], order);
+
+	Sort(sort_array, sort_array[0], sort_array[0].by_this.nested_variable, order);
 END_IF
 ]]></ST>
     </Implementation>
@@ -47,7 +55,11 @@ END_VAR
         <ST><![CDATA[
 TestArray0 := Array0;
 TestArray1 := Array1;
-]]></ST>
+
+sort_array[0].by_this.nested_variable := T#5S;
+sort_array[1].by_this.nested_variable := T#1S;
+sort_array[2].by_this.nested_variable := T#18D;
+sort_array[3].by_this.nested_variable := T#42MS;]]></ST>
       </Implementation>
     </Method>
   </POU>
