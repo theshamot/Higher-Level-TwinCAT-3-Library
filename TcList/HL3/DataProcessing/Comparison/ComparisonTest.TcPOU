@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="ComparisonTest" Id="{3a5438e8-f380-4b12-812c-3690917815dd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ComparisonTest
+VAR
+	r1 : LREAL := 3.14;
+	r2 : LREAL := -129;
+	s1 : STRING := 'towel';
+	s2 : STRING := 'galaxy';
+	
+	at1 : __SYSTEM.AnyType;
+	at2 : __SYSTEM.AnyType;
+	
+	res_r : ARRAY[0..6] OF E_GeneralResult;
+	res_s : ARRAY[0..6] OF E_GeneralResult;
+	
+	test : BOOL;
+	
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF test THEN
+
+	test := FALSE;
+
+	at1 := GetAnyType(r1);
+	at2 := GetAnyType(r2);
+	
+	res_r[0] := IsEqualAnyType(at1, at2);
+	res_r[1] := IsNotEqualAnyType(at1, at2);
+	res_r[2] := IsLessThanAnyType(at1, at2);
+	res_r[3] := IsLessThanOrEqualAnyType(at1, at2);
+	res_r[4] := IsGreaterThanAnyType(at1, at2);
+	res_r[5] := IsGreaterThanOrEqualAnyType(at1, at2);
+	res_r[6] := CompareAnyType(at1, is := E_Compare.GREATER_THAN_OR_EQUAL, at2);
+
+	at1 := GetAnyType(s1);
+	at2 := GetAnyType(s2);
+	
+	res_s[0] := IsEqualAnyType(at1, at2);
+	res_s[1] := IsNotEqualAnyType(at1, at2);
+	res_s[2] := IsLessThanAnyType(at1, at2);
+	res_s[3] := IsLessThanOrEqualAnyType(at1, at2);
+	res_s[4] := IsGreaterThanAnyType(at1, at2);
+	res_s[5] := IsGreaterThanOrEqualAnyType(at1, at2);
+	res_s[6] := CompareAnyType(at1, is := E_Compare.GREATER_THAN_OR_EQUAL, at2);
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -19,6 +19,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 IF StartIndex < EndIndex THEN
+
 	PivotIndex := _Partition(Arr, FirstElement, SortBy, MemberOffset, StartIndex, EndIndex, Order);
 	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, StartIndex, PivotIndex - 1, Order);
 	_QuickSort(Arr, FirstElement, SortBy, MemberOffset, PivotIndex + 1, EndIndex, Order);

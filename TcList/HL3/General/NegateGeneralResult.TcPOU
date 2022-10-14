@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="NegateGeneralResult" Id="{c982e807-bb92-42a8-95dc-1dbb092fd1e8}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION NegateGeneralResult : E_GeneralResult
+    <Declaration><![CDATA[
+FUNCTION NegateGeneralResult : E_GeneralResult
 VAR_INPUT
 	result		: E_GeneralResult;
 END_VAR
@@ -9,7 +10,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE result OF
+      <ST><![CDATA[
+CASE result OF
 	E_GeneralResult.OK:
 		NegateGeneralResult := E_GeneralResult.NOK;
 	E_GeneralResult.NOK:
@@ -20,7 +22,8 @@ END_VAR
 		NegateGeneralResult := E_GeneralResult._TRUE;
 	ELSE
 		NegateGeneralResult := result;
-END_CASE]]></ST>
+END_CASE
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

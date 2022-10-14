@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="IsGreaterThanAnyType" Id="{80003be1-80be-4c02-9894-5a3b71020ab5}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION IsGreaterThanAnyType : E_GeneralResult
+    <Declaration><![CDATA[
+FUNCTION IsGreaterThanAnyType : E_GeneralResult
 VAR_INPUT
 	A					: __SYSTEM.AnyType; // A and B have to be same type
 	B					: __SYSTEM.AnyType; // A and B have to be same type
@@ -11,66 +12,71 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF A.TypeClass <> B.TypeClass THEN
+      <ST><![CDATA[
+IF A.TypeClass <> B.TypeClass THEN
+
 	RETURN;
 END_IF
 
 CASE UDINT_TO_INT(A.TypeClass) OF
     IBaseLibrary.TypeClass.TYPE_BOOL :
-        isGreaterThan := PBOOL_TO_BOOL(a.pValue) < PBOOL_TO_BOOL(b.pValue);
+        isGreaterThan := PBOOL_TO_BOOL(a.pValue) > PBOOL_TO_BOOL(b.pValue);
     IBaseLibrary.TypeClass.TYPE_BIT :
-        isGreaterThan := BYTE_TO_BIT(a.pValue^) < BYTE_TO_BIT(b.pValue^);
+        isGreaterThan := BYTE_TO_BIT(a.pValue^) > BYTE_TO_BIT(b.pValue^);
     IBaseLibrary.TypeClass.TYPE_BYTE :
-        isGreaterThan := a.pValue^ < b.pValue^;
+        isGreaterThan := a.pValue^ > b.pValue^;
     IBaseLibrary.TypeClass.TYPE_WORD :
-        isGreaterThan := PWORD_TO_WORD(a.pValue) < PWORD_TO_WORD(b.pValue);
+        isGreaterThan := PWORD_TO_WORD(a.pValue) > PWORD_TO_WORD(b.pValue);
     IBaseLibrary.TypeClass.TYPE_DWORD :
-        isGreaterThan := PDWORD_TO_DWORD(a.pValue) < PDWORD_TO_DWORD(b.pValue);
+        isGreaterThan := PDWORD_TO_DWORD(a.pValue) > PDWORD_TO_DWORD(b.pValue);
     IBaseLibrary.TypeClass.TYPE_LWORD :
-        isGreaterThan := PLWORD_TO_LWORD(a.pValue) < PLWORD_TO_LWORD(b.pValue);
+        isGreaterThan := PLWORD_TO_LWORD(a.pValue) > PLWORD_TO_LWORD(b.pValue);
     IBaseLibrary.TypeClass.TYPE_SINT :
-        isGreaterThan := PSINT_TO_SINT(a.pValue) < PSINT_TO_SINT(b.pValue);
+        isGreaterThan := PSINT_TO_SINT(a.pValue) > PSINT_TO_SINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_INT :
-        isGreaterThan := PINT_TO_INT(a.pValue) < PINT_TO_INT(b.pValue);
+        isGreaterThan := PINT_TO_INT(a.pValue) > PINT_TO_INT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_DINT :
-        isGreaterThan := PDINT_TO_DINT(a.pValue) < PDINT_TO_DINT(b.pValue);
+        isGreaterThan := PDINT_TO_DINT(a.pValue) > PDINT_TO_DINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_LINT :
-        isGreaterThan := PLINT_TO_LINT(a.pValue) < PLINT_TO_LINT(b.pValue);
+        isGreaterThan := PLINT_TO_LINT(a.pValue) > PLINT_TO_LINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_USINT :
-        isGreaterThan := PUSINT_TO_USINT(a.pValue) < PUSINT_TO_USINT(b.pValue);
+        isGreaterThan := PUSINT_TO_USINT(a.pValue) > PUSINT_TO_USINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_UINT :
-        isGreaterThan := PUINT_TO_UINT(a.pValue) < PUINT_TO_UINT(b.pValue);
+        isGreaterThan := PUINT_TO_UINT(a.pValue) > PUINT_TO_UINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_UDINT :
-        isGreaterThan := PUDINT_TO_UDINT(a.pValue) < PUDINT_TO_UDINT(b.pValue);
+        isGreaterThan := PUDINT_TO_UDINT(a.pValue) > PUDINT_TO_UDINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_ULINT :
-        isGreaterThan := PULINT_TO_ULINT(a.pValue) < PULINT_TO_ULINT(b.pValue);
+        isGreaterThan := PULINT_TO_ULINT(a.pValue) > PULINT_TO_ULINT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_REAL :
-        isGreaterThan := PREAL_TO_REAL(a.pValue) < PREAL_TO_REAL(b.pValue);
+        isGreaterThan := PREAL_TO_REAL(a.pValue) > PREAL_TO_REAL(b.pValue);
     IBaseLibrary.TypeClass.TYPE_LREAL :
-        isGreaterThan := PLREAL_TO_LREAL(a.pValue) < PLREAL_TO_LREAL(b.pValue);
+        isGreaterThan := PLREAL_TO_LREAL(a.pValue) > PLREAL_TO_LREAL(b.pValue);
     IBaseLibrary.TypeClass.TYPE_STRING :
-        isGreaterThan := PSTRING_TO_STRING(a.pValue) < PSTRING_TO_STRING(b.pValue);
+        isGreaterThan := PSTRING_TO_STRING(a.pValue) > PSTRING_TO_STRING(b.pValue);
     IBaseLibrary.TypeClass.TYPE_TIME :
-        isGreaterThan := PTIME_TO_TIME(a.pValue) < PTIME_TO_TIME(b.pValue);
+        isGreaterThan := PTIME_TO_TIME(a.pValue) > PTIME_TO_TIME(b.pValue);
     IBaseLibrary.TypeClass.TYPE_DATE :
-        isGreaterThan := PDATE_TO_DATE(a.pValue) < PDATE_TO_DATE(b.pValue);
+        isGreaterThan := PDATE_TO_DATE(a.pValue) > PDATE_TO_DATE(b.pValue);
     IBaseLibrary.TypeClass.TYPE_DATEANDTIME :
-        isGreaterThan := PDT_TO_DT(a.pValue) < PDT_TO_DT(b.pValue);
+        isGreaterThan := PDT_TO_DT(a.pValue) > PDT_TO_DT(b.pValue);
     IBaseLibrary.TypeClass.TYPE_TIMEOFDAY :
-        isGreaterThan := PTOD_TO_TOD(a.pValue) < PTOD_TO_TOD(b.pValue);
+        isGreaterThan := PTOD_TO_TOD(a.pValue) > PTOD_TO_TOD(b.pValue);
     IBaseLibrary.TypeClass.TYPE_POINTER :
-        isGreaterThan := a.pValue < b.pValue;
+        isGreaterThan := a.pValue > b.pValue;
     IBaseLibrary.TypeClass.TYPE_LTIME :
-        isGreaterThan := PLTIME_TO_LTIME(a.pValue) < PLTIME_TO_LTIME(b.pValue);
+        isGreaterThan := PLTIME_TO_LTIME(a.pValue) > PLTIME_TO_LTIME(b.pValue);
 	ELSE
 		RETURN;
 END_CASE
 
 IF isGreaterThan THEN
+
 	IsGreaterThanAnyType := E_GeneralResult._TRUE;
 ELSE
+
 	IsGreaterThanAnyType := E_GeneralResult._FALSE;
-END_IF]]></ST>
+END_IF
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

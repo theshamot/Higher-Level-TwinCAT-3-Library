@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="CompareAnyType" Id="{e0af17e2-781c-40ae-9369-407baf4161a9}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION CompareAnyType : E_GeneralResult
+    <Declaration><![CDATA[
+FUNCTION CompareAnyType : E_GeneralResult
 VAR_INPUT
 	A					: __SYSTEM.AnyType; // A and B have to be same type
 	is					: E_Compare;
@@ -11,7 +12,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE is OF
+      <ST><![CDATA[
+CASE is OF
 	E_Compare.EQUAL:
 		CompareAnyType := IsEqualAnyType(A, B);
 	E_Compare.NOT_EQUAL:
@@ -24,7 +26,8 @@ END_VAR
 		CompareAnyType := IsGreaterThanAnyType(A, B);
 	E_Compare.GREATER_THAN_OR_EQUAL:
 		CompareAnyType := IsGreaterThanOrEqualAnyType(A, B);
-END_CASE]]></ST>
+END_CASE
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <DUT Name="E_Compare" Id="{102e080b-da02-4c0b-a370-e824c6e3fd0b}">
-    <Declaration><![CDATA[{attribute 'qualified_only'}
+    <Declaration><![CDATA[
+{attribute 'qualified_only'}
 {attribute 'strict'}
 TYPE E_Compare :
 (

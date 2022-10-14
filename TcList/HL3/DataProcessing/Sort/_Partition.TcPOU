@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="_Partition" Id="{3ded649f-0755-479b-9bc6-855de8b30060}" SpecialFunc="None">
-    <Declaration><![CDATA[// Function used in QuickSort
+    <Declaration><![CDATA[
+// Function used in QuickSort
 FUNCTION _Partition : DINT
 VAR_INPUT
 	Arr					: __SYSTEM.AnyType;
@@ -17,12 +18,13 @@ VAR
 	Leftwall			: DINT; // New pivot location
 	Iterator			: DINT; // For iterator variable
 	IterAdr				: POINTER TO BYTE;
-//	compA				: __SYSTEM.AnyType := SortBy;
-//	compB				: __SYSTEM.AnyType := SortBy;
+	compA				: __SYSTEM.AnyType := SortBy; // get data of compared variable
+	compB				: __SYSTEM.AnyType := SortBy;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Pivot := Arr.pValue + FirstElement.diSize * EndIndex;
+      <ST><![CDATA[
+Pivot := Arr.pValue + FirstElement.diSize * EndIndex;
 
 Leftwall := StartIndex;
 
@@ -30,32 +32,18 @@ FOR Iterator := StartIndex TO EndIndex - 1 DO
 
 	IterAdr := Arr.pValue + FirstElement.diSize * Iterator;
 	
-//	compA.pValue := IterAdr + MemberOffset;
-//	compB.pValue := Pivot + MemberOffset;
+	compA.pValue := IterAdr + MemberOffset; // data of compared variable stays the same, just point to other value
+	compB.pValue := Pivot + MemberOffset;
 	
-//	CASE Order OF
-//		E_Order.ASCENDING:
-//			IF IsLessThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
-//				SwapByAddr(IterAdr, Pivot, FirstElement.diSize);
-//				Leftwall := Leftwall + 1;
-//			END_IF
-//		E_Order.DESCENDING:
-//			IF IsGreaterThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
-//				SwapByAddr(IterAdr, Pivot, FirstElement.diSize);
-//				Leftwall := Leftwall + 1;
-//			END_IF
-//	END_CASE
-	
-	CASE SortBy.TypeClass OF
+	CASE Order OF
+		E_Order.ASCENDING:
+			IF IsLessThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
 
-		__SYSTEM.TYPE_CLASS.TYPE_INT:
-			IF PINT_TO_INT(IterAdr + MemberOffset) <= PINT_TO_INT(Pivot + MemberOffset) THEN
-
-				SwapByAddr(IterAdr, Pivot, FirstElement.diSize);
+				SwapByAddr(IterAdr, Arr.pValue + FirstElement.diSize * Leftwall, FirstElement.diSize);
 				Leftwall := Leftwall + 1;
 			END_IF
-		__SYSTEM.TYPE_CLASS.TYPE_REAL:
-			IF PREAL_TO_REAL(IterAdr + MemberOffset) <= PREAL_TO_REAL(Pivot + MemberOffset) THEN
+		E_Order.DESCENDING:
+			IF IsGreaterThanOrEqualAnyType(compA, compB) = E_GeneralResult._TRUE THEN
 
 				SwapByAddr(IterAdr, Arr.pValue + FirstElement.diSize * Leftwall, FirstElement.diSize);
 				Leftwall := Leftwall + 1;

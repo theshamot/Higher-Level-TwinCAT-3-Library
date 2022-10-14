@@ -16,8 +16,8 @@ WrappableListExample();
 
 QuickSortTest();
 SortTest();
-
-//Sort(arr := a, firstElement := a[0], sortBy := a[0], order := E_Order.ASCENDING);]]></ST>
+ComparisonTest();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

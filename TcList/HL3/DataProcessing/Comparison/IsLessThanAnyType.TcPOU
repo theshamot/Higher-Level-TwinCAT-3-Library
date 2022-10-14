@@ -12,6 +12,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF A.TypeClass <> B.TypeClass THEN
+
 	RETURN;
 END_IF
 
@@ -67,8 +68,10 @@ CASE UDINT_TO_INT(A.TypeClass) OF
 END_CASE
 
 IF isLessThan THEN
+
 	IsLessThanAnyType := E_GeneralResult._TRUE;
 ELSE
+
 	IsLessThanAnyType := E_GeneralResult._FALSE;
 END_IF]]></ST>
     </Implementation>

@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="SortTest" Id="{d95a2e8d-bb47-456d-9afc-02b8a43bc324}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM SortTest
+    <Declaration><![CDATA[
+PROGRAM SortTest
 VAR
 	TestArray0 : ARRAY[0..20] OF REAL := [
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 		42, 3.14, 0.618, 1.618, 2.618
 	];
-	TestArray1 : ARRAY[0..1] OF REAL := [0.1, -0.2];
+	TestArray1 : ARRAY[0..3] OF STRING := ['aaa', 'g', 'aab', 'a'];
 	
 	init : BOOL;
 	startSort : BOOL;
 	
 	order	: E_Order;
-	res : E_GeneralStatus;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF init THEN
+      <ST><![CDATA[
+IF init THEN
 	init := FALSE;
 	reinit();
 END_IF
@@ -39,7 +40,7 @@ VAR CONSTANT
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 		42, 3.14, 0.618, 1.618, 2.618
 	];
-	Array1 : ARRAY[0..1] OF REAL := [0.1, -0.2];
+	Array1 : ARRAY[0..3] OF STRING := ['aaa', 'g', 'aab', 'a'];
 END_VAR
 ]]></Declaration>
       <Implementation>

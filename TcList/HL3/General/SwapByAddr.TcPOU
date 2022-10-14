@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="SwapByAddr" Id="{8f7e6b3f-cfc8-4cf3-a66c-26ce49090c04}" SpecialFunc="None">
-    <Declaration><![CDATA[// Swaps values of to variables
+    <Declaration><![CDATA[
+// Swaps values of to variables
 FUNCTION SwapByAddr : E_GeneralStatus
 VAR_INPUT
 	A : POINTER TO BYTE;
@@ -13,7 +14,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF A = 0 OR B = 0 THEN
+      <ST><![CDATA[
+IF A = 0 OR B = 0 THEN
 	
 	SwapByAddr := E_GeneralStatus.INPUT_ERROR;
 	RETURN;
@@ -27,7 +29,8 @@ MEMCPY(B, Temp, Length);
 
 __DELETE(Temp);
 
-SwapByAddr := E_GeneralStatus.DONE;]]></ST>
+SwapByAddr := E_GeneralStatus.DONE;
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

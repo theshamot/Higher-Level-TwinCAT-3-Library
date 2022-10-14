@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="GetAnyType" Id="{443949fb-0e92-45a1-919c-47897b524390}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION GetAnyType : __SYSTEM.AnyType
+VAR_INPUT
+	a		: ANY;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GetAnyType := a;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
