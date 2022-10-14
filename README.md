@@ -29,9 +29,21 @@ I would like to thank [Jakob Sagatowsky](https://github.com/sagatowski) and [TcO
   - When retrieving data from List using `Get(int index, ANY destinationVariable)` function you also pass the variable you want to write data to. The variable is checked on its compatibility and if datatype is valid then data are written into the variable.
   - ❗When adding or retrieving data from List the datatype is checked. If the datatype is not valid it will RETURN without doing anything❗
   - WIP wrapper example for List of Custom datatype. You can access object properties using dot notation `myList.Get(0).VarBOOL`.
-### QuickSort
-- Function to sort ARRAY OF REAL using QuickSort algorithm
-- Also contains function for easy swap of two REAL variable values
+### Sort
+- Sorts array of anything using quicksort algorythm.
+- Array can be sorted by ascending or descending order.
+- It is designed to be able sort by nested element. That means you can sort array of structures/fbs by its member variable (e.g. You have struct describing product. Let's say one of structures variables is time it was produced. You can sort the array by this time.)
+- Syntax: `Sort(array, firtElementOfArray, sortByVariable, order)`. `firstElementOfArray` points to arrays first index, `sortByVariable` points to variable you want to sort by as refered to variable from first index of array. It can be same variable as provided in `firstElementOfArray` or member of this variable. `order` is self-explanatory.
+- Example syntax: Sort(sort_array, `Sort(sort_array, sort_array[0], sort_array[0].by_this.nested_variable, E_Order.ASCENDING)`
+
+### Comparisons
+- Compare functions for variables passed by __SYSTEM.AnyType description.
+- Can compare numbers, times, strings and some other datatypes.
+
+### Others
+- Conversion of __SYSTEM.AnyType to String or WString
+- Swap to swap byte content of any two variables with matching size
+- Some general usage enumerators
 
 ---
 
