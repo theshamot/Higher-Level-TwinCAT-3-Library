@@ -3,6 +3,8 @@ Library should offer set of abstract objects such as Lists or Maps common in hig
 
 I would like to thank [Jakob Sagatowsky](https://github.com/sagatowski) and [TcOpen](https://github.com/TcOpenGroup/TcOpen) for their opensource projects as I use them to gather knowledge and are inpiration for me. Thx!
 
+**⭐ See my other and more up to date project "[Simple Yet Complex](https://github.com/theshamot/tc-syc)" for TwinCAT. This library will be merged in there.⭐**
+
 ---
 
 ## Current status
